@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/SnapperGee/js-quiz#readme",
   "scripts": {
+    "build": "npm run ts && npm run scss",
+    "clean": "rm -rf ./src/main/js ./src/main/css",
     "prescss": "rm -rf ./src/main/css",
     "prets": "rm -rf ./src/main/js",
     "scss": "sass --no-source-map ./src/main/scss:./src/main/css",
