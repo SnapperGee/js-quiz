@@ -34,3 +34,5 @@ export function answer(answerOrOther: NonNullable<string | Answer>, isCorrect?: 
 
     return new Answer(answerOrOther.answer, answerOrOther.isCorrect);
 }
+
+export default answer;
