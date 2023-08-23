@@ -1,5 +1,2 @@
 @use "./reset";
-
-#startButton {
-    display: block;
-}
+@use "../../../node_modules/bootstrap/scss/bootstrap";
