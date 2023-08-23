@@ -1,2 +1,15 @@
-@use "./reset";
 @use "../../../node_modules/bootstrap/scss/bootstrap";
+
+main {
+    max-width: 900px;
+}
+
+p {
+    background-color: red;
+}
+#startButton {
+    border-radius: 25px;
+    font-size: 80px;
+    font-weight: 800;
+    width: 700px;
+}
