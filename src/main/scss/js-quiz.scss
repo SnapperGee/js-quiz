@@ -1,14 +1,5 @@
 @use "../../../node_modules/bootstrap/scss/bootstrap";
 
-main {
-    max-width: 900px;
-}
-
-p {
-    background-color: red;
-}
-#startButton {
-    border-radius: 25px;
-    font-size: 80px;
-    width: 700px;
+html, body {
+    height: 100%;
 }
