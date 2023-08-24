@@ -14,6 +14,14 @@ export abstract class DOMElement<ElementType extends HTMLElement>
 
     public hide(): void { this.#domElement.style.display = "none"; }
     public show(): void { this.#domElement.style.display = this.#originalDisplayStatus; }
+    public remove(): void
+    {
+        if (document.body.contains(this.#domElement))
+        {
+            this.#domElement.remove();
+        }
+    }
+
     public appendChildren(...elements: readonly HTMLElement[]): void
     {
         if (elements.length === 1)
