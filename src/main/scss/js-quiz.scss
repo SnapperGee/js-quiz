@@ -15,6 +15,6 @@ ul {
 }
 
 // Prevent answer buttons from stacking directly on each other
-.answerButtonColumn li:not(:first-child) {
+.answerButtonList li:not(:first-child) {
     margin-top: 40px;
 }
