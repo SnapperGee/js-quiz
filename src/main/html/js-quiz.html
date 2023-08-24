@@ -12,21 +12,28 @@
       <section class="row-cols-1" id="prompt">
         <p class="text-wrap fs-2">Use the button below to start the quiz on JavaScript fundamentals.</p>
       </section>
-      <section class="row text-center">
-        <div class="col" id="promptOptions">
+
+      <div class="row text-center">
+
+        <section class="col" id="startButtonColumn">
           <button id="startButton" class="btn btn-primary btn-lg fs-1 fw-bold button" type="button">Start</button>
-        </div>
-      </section>
-      <section class="d-flex justify-content-around" id="answerButtonLists">
-        <ul class="list-group answerButtonList" id="leftAnswerButtonsList">
-          <li><button class="btn btn-primary btn-lg fs-1 fw-bold button" type="button">Answer 1</button></li>
-          <li><button class="btn btn-primary btn-lg fs-1 fw-bold button" type="button">Answer 2</button></li>
-        </ul>
-        <ul class="list-group answerButtonList" id="rightAnswerButtonsList">
-          <li><button class="btn btn-primary btn-lg fs-1 fw-bold button" type="button">Answer 3</button></li>
-          <li><button class="btn btn-primary btn-lg fs-1 fw-bold button" type="button">Answer 4</button></li>
-        </ul>
-      </section>
+        </section>
+
+        <section class="col answerColumn" id="leftAnswerColumn">
+          <ul class="list-group answerButtonList">
+            <li><button class="btn btn-primary btn-lg fs-2 fw-bold button answerButton" data-isCorrect="false" type="button">Answer 1</button></li>
+            <li><button class="btn btn-primary btn-lg fs-2 fw-bold button answerButton" data-isCorrect="false" type="button">Answer 3</button></li>
+          </ul>
+        </section>
+
+        <section class="col answerColumn" id="rightAnswerColumn">
+          <ul class="list-group answerButtonList">
+            <li><button class="btn btn-primary btn-lg fs-2 fw-bold button answerButton" data-isCorrect="false" type="button">Answer 2</button></li>
+            <li><button class="btn btn-primary btn-lg fs-2 fw-bold button answerButton" data-isCorrect="false" type="button">Answer 4</button></li>
+          </ul>
+        </section>
+
+      </div>
     </main>
   </div>
 
