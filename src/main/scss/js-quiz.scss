@@ -1,11 +1,20 @@
 @use "../../../node_modules/bootstrap/scss/bootstrap";
 
+ul {
+    list-style-type: none;
+}
+
+// Prevent answer buttons from stacking directly on each other
+.answerButtonColumn li:not(:first-child) {
+    margin-top: 40px;
+}
+
 // Setting root height so container can be centered vertically
 html, body {
     height: 100%;
 }
 
-#startButton {
+.button {
     border-radius: 20px;
     padding: 15px 70px;
 }
