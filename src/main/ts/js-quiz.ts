@@ -29,7 +29,17 @@ const question1AnswerOptions: readonly Answer[] = [
 
 const firstQuestion = new Question(question1Prompt, question1AnswerOptions);
 
-const answerButtons: readonly AnswerButton[] = firstQuestion.answers.map(answer => answerButton(answer));
+let clickedAnswerButton: EventTarget | null;
+
+const answerButtons: readonly AnswerButton[] = firstQuestion.answers.map(answer => {
+    const ab = answerButton(answer);
+
+    ab.HTMLElement.addEventListener("click", event =>{
+        clickedAnswerButton = event.target;
+    });
+
+    return ab;
+});
 
 const leftAnswerButtonList = document.getElementById("leftAnswerButtonList");
 const rightAnswerButtonList = document.getElementById("rightAnswerButtonList");
@@ -44,8 +54,6 @@ answerButtonListItems.forEach((answerButtonListItem, index) => {
     if (index % 2 === 0) { leftAnswerButtonList?.appendChild(answerButtonListItem); }
     else {rightAnswerButtonList?.appendChild(answerButtonListItem); }
 });
-
-console.log(firstQuestion);
 
 
 
