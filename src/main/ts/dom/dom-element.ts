@@ -1,9 +1,9 @@
-export abstract class DOMElement<ElementType extends HTMLElement>
+export class DOMElement<ElementType extends HTMLElement>
 {
     readonly #domElement: ElementType;
     readonly #originalDisplayStatus: string;
 
-    protected constructor(htmlElement: NonNullable<ElementType>)
+    public constructor(htmlElement: NonNullable<ElementType>)
     {
         if (htmlElement === undefined || htmlElement === null)
         {
