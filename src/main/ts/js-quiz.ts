@@ -1,4 +1,5 @@
 import { button } from "./dom/button.js";
+import { type AnswerButton, answerButton } from "./dom/create/answer-button.js";
 import { domElement} from "./dom/dom-element.js";
 import { answer, type Answer } from "./quiz/answer.js";
 import { Question } from "./quiz/question.js";
@@ -8,7 +9,7 @@ const startButtonColumn = document.getElementById("startButtonColumn");
 const startButton = button(<HTMLButtonElement> document.getElementById("startButton"));
 const answerColumns = Object.freeze(Array.from(document.getElementsByClassName("answerColumn")));
 
-const hideParagraphPromptAndRemoveStartButton = () =>
+const startQuiz = () =>
 {
     paragraphPrompt.textContent = question1Prompt;
     startButtonColumn?.remove();
@@ -17,7 +18,7 @@ const hideParagraphPromptAndRemoveStartButton = () =>
 
 const question1Prompt = "This is the first question";
 
-startButton.addClickEventListener(hideParagraphPromptAndRemoveStartButton);
+startButton.addClickEventListener(startQuiz);
 
 const question1AnswerOptions: readonly Answer[] = [
     answer("Incorrect answer", false),
@@ -27,6 +28,24 @@ const question1AnswerOptions: readonly Answer[] = [
 ];
 
 const firstQuestion = new Question(question1Prompt, question1AnswerOptions);
+
+const answerButtons: readonly AnswerButton[] = firstQuestion.answers.map(answer => answerButton(answer));
+
+const leftAnswerButtonList = document.getElementById("leftAnswerButtonList");
+const rightAnswerButtonList = document.getElementById("rightAnswerButtonList");
+
+const answerButtonListItems: readonly HTMLLIElement[] = answerButtons.map(answerButton =>{
+    const listItem = document.createElement("li");
+    listItem.appendChild(answerButton.HTMLElement);
+    return listItem;
+});
+
+answerButtonListItems.forEach((answerButtonListItem, index) => {
+    if (index % 2 === 0) { leftAnswerButtonList?.appendChild(answerButtonListItem); }
+    else {rightAnswerButtonList?.appendChild(answerButtonListItem); }
+});
+
+console.log(firstQuestion);
 
 
 
