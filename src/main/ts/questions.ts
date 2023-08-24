@@ -2,7 +2,7 @@ import { answer } from "./quiz/answer.js";
 import { Question } from "./quiz/question.js";
 
 export const betterThanJSQuestion: Question = new Question(
-    "What language is better than JavaScript?",
+    "What language offers some advantages over JavaScript?",
     [
         answer("Python", true),
         answer("TypeScript", true),
@@ -32,7 +32,7 @@ export const jsCreationTimeQuestion: Question = new Question(
 );
 
 export const jsPrioritiesDuringCreationQuestion: Question = new Question(
-    "When JavaScript was being created, what was it's main priority?",
+    "When JavaScript was being created, what was its main priority?",
     [
         answer("Developing it ASAP", true),
         answer("Scalability", false),
