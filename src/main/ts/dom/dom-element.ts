@@ -1,4 +1,4 @@
-export abstract class Element<ElementType extends HTMLElement>
+export abstract class DOMElement<ElementType extends HTMLElement>
 {
     readonly #domElement: ElementType;
     readonly #originalDisplayStatus: string;
@@ -29,4 +29,4 @@ export abstract class Element<ElementType extends HTMLElement>
     }
 }
 
-export default Element;
+export default DOMElement;
