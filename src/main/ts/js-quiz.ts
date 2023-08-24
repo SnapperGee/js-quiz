@@ -2,13 +2,13 @@ import { button } from "./dom/button.js";
 import { type AnswerButton, answerButton } from "./dom/create/answer-button.js";
 import { domElement} from "./dom/dom-element.js";
 import {questions as allQuestions} from "./questions.js";
-import { answer, type Answer } from "./quiz/answer.js";
+import { type Answer } from "./quiz/answer.js";
 import { Question } from "./quiz/question.js";
 
 const questions: readonly Question[] = allQuestions;
 
 const paragraphPrompt = domElement(document.querySelector("p"));
-const setParagraphPromptText = (aString: string): void  => {paragraphPrompt.textContent = aString};
+const setParagraphPromptText = (aString: string): void  => {paragraphPrompt.textContent = aString; };
 
 const startButtonColumn = document.getElementById("startButtonColumn");
 const removeStartButtonColumn = (): void => startButtonColumn?.remove();
@@ -21,7 +21,7 @@ const showAnswerColumns = (): void => answerColumns.forEach(answerColumn => (<HT
 const startQuiz = () =>
 {
     removeStartButtonColumn();
-    setQuestionPromptAndAnswers(questions[0]);
+    setQuestionPromptAndAnswers(questions[3]);
     showAnswerColumns();
 };
 
@@ -33,7 +33,7 @@ const rightAnswerButtonList = document.getElementById("rightAnswerButtonList");
 
 const clearAnswerLists = (): void => {leftAnswerButtonList!.innerHTML = ""; rightAnswerButtonList!.innerHTML = ""; };
 
-const setAnswerLists = (answers: readonly Answer[]) => {
+const clearAndSetAnswerLists = (answers: readonly Answer[]) => {
     const answerButtons: readonly AnswerButton[] = answers.map(answer => {
         const ab = answerButton(answer);
 
@@ -66,16 +66,5 @@ const setAnswerLists = (answers: readonly Answer[]) => {
 const setQuestionPromptAndAnswers = (question: Question) =>
 {
     setParagraphPromptText(question.promptText);
-
-    const answerButtons = question.answers.map(answer => {
-        const answerButtonHTMLElement = answerButton(answer);
-
-        answerButtonHTMLElement.HTMLElement.addEventListener("click", event =>{
-            clickedAnswerButton = event.target;
-        });
-
-        return answerButtonHTMLElement;
-    });
-
-    setAnswerLists(question.answers);
+    clearAndSetAnswerLists(question.answers);
 };
