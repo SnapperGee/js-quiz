@@ -44,4 +44,9 @@ export class DOMElement<ElementType extends HTMLElement>
     }
 }
 
-export default DOMElement;
+export function domElement<ElementType extends HTMLElement>(htmlElement: ElementType | null): DOMElement<ElementType>
+{
+    return new DOMElement(htmlElement!);
+}
+
+export default domElement;

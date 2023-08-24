@@ -1,11 +1,11 @@
-import DOMElement from "./dom-element.js";
+import { DOMElement } from "./dom-element.js";
 
 export class Button extends DOMElement<HTMLButtonElement>
 {
 
-    public constructor(button: HTMLButtonElement)
+    public constructor(htmlButtonElement: HTMLButtonElement)
     {
-        super(button);
+        super(htmlButtonElement);
     }
 
     public addClickEventListener(triggeredFunction: (this: HTMLButtonElement, mouseEvent: MouseEvent) => unknown): void
@@ -16,3 +16,10 @@ export class Button extends DOMElement<HTMLButtonElement>
         }
     }
 }
+
+export function button(htmlButtonElement: HTMLButtonElement | null): Button
+{
+    return new Button(htmlButtonElement!);
+}
+
+export default button;
