@@ -1,17 +1,17 @@
 export class Answer
 {
-    readonly #answer: string;
+    readonly #text: string;
     readonly #isCorrect: boolean;
     readonly #string: string;
 
     public constructor(answer: NonNullable<string>, isCorrect: NonNullable<boolean>)
     {
-        this.#answer = answer;
+        this.#text = answer;
         this.#isCorrect = isCorrect;
-        this.#string = `${new.target.name} {answer: "${this.#answer}", isCorrect: ${this.#isCorrect}}`;
+        this.#string = `${new.target.name} {answer: "${this.#text}", isCorrect: ${this.#isCorrect}}`;
     }
 
-    public get answer(): string { return this.#answer; }
+    public get text(): string { return this.#text; }
 
     public get isCorrect(): boolean { return this.#isCorrect; }
 
@@ -32,7 +32,7 @@ export function answer(answerOrOther: NonNullable<string | Answer>, isCorrect?: 
         return new Answer(answerOrOther, isCorrect);
     }
 
-    return new Answer(answerOrOther.answer, answerOrOther.isCorrect);
+    return new Answer(answerOrOther.text, answerOrOther.isCorrect);
 }
 
 export default answer;
