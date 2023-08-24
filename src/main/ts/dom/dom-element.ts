@@ -16,6 +16,8 @@ export abstract class DOMElement<ElementType extends HTMLElement>
 
     public get domElement(): ElementType | null { return this.#domElement; }
     public get id(): string { return this.#domElement.id; }
+    public get textContent(): string | null { return this.#domElement.textContent; }
+    public set textContent(newTextContent: string) { this.#domElement.textContent = newTextContent; }
 
     public hide(): void { this.#domElement.style.display = "none"; }
     public show(): void { this.#domElement.style.display = this.#originalDisplayStatus; }
