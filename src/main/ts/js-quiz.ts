@@ -1,90 +1,81 @@
 import { button } from "./dom/button.js";
 import { type AnswerButton, answerButton } from "./dom/create/answer-button.js";
 import { domElement} from "./dom/dom-element.js";
+import {questions as allQuestions} from "./questions.js";
 import { answer, type Answer } from "./quiz/answer.js";
 import { Question } from "./quiz/question.js";
 
+const questions: readonly Question[] = allQuestions;
+
 const paragraphPrompt = domElement(document.querySelector("p"));
+const setParagraphPromptText = (aString: string): void  => {paragraphPrompt.textContent = aString};
+
 const startButtonColumn = document.getElementById("startButtonColumn");
+const removeStartButtonColumn = (): void => startButtonColumn?.remove();
+
 const startButton = button(<HTMLButtonElement> document.getElementById("startButton"));
+
 const answerColumns = Object.freeze(Array.from(document.getElementsByClassName("answerColumn")));
+const showAnswerColumns = (): void => answerColumns.forEach(answerColumn => (<HTMLElement> answerColumn).style.display = "block" );
 
 const startQuiz = () =>
 {
-    paragraphPrompt.textContent = question1Prompt;
-    startButtonColumn?.remove();
-    answerColumns.forEach(answerColumn => (<HTMLElement> answerColumn).style.display = "block" );
+    removeStartButtonColumn();
+    setQuestionPromptAndAnswers(questions[0]);
+    showAnswerColumns();
 };
 
-const question1Prompt = "This is the first question";
-
-startButton.addClickEventListener(startQuiz);
-
-const question1AnswerOptions: readonly Answer[] = [
-    answer("Incorrect answer", false),
-    answer("Another incorrect answer", false),
-    answer("CORRECT answer", true),
-    answer("Third incorrect answer", false)
-];
-
-const firstQuestion = new Question(question1Prompt, question1AnswerOptions);
+startButton.domElement?.addEventListener("click", startQuiz);
 
 let clickedAnswerButton: EventTarget | null;
-
-const answerButtons: readonly AnswerButton[] = firstQuestion.answers.map(answer => {
-    const ab = answerButton(answer);
-
-    ab.HTMLElement.addEventListener("click", event =>{
-        clickedAnswerButton = event.target;
-    });
-
-    return ab;
-});
-
 const leftAnswerButtonList = document.getElementById("leftAnswerButtonList");
 const rightAnswerButtonList = document.getElementById("rightAnswerButtonList");
 
-const answerButtonListItems: readonly HTMLLIElement[] = answerButtons.map(answerButton =>{
-    const listItem = document.createElement("li");
-    listItem.appendChild(answerButton.HTMLElement);
-    return listItem;
-});
+const clearAnswerLists = (): void => {leftAnswerButtonList!.innerHTML = ""; rightAnswerButtonList!.innerHTML = ""; };
 
-answerButtonListItems.forEach((answerButtonListItem, index) => {
-    if (index % 2 === 0) { leftAnswerButtonList?.appendChild(answerButtonListItem); }
-    else {rightAnswerButtonList?.appendChild(answerButtonListItem); }
-});
+const setAnswerLists = (answers: readonly Answer[]) => {
+    const answerButtons: readonly AnswerButton[] = answers.map(answer => {
+        const ab = answerButton(answer);
 
+        ab.HTMLElement.addEventListener("click", event =>{
+            clickedAnswerButton = event.target;
+        });
 
+        return ab;
+    });
 
+    const answerButtonListItems: {left: DocumentFragment, right: DocumentFragment} = answerButtons.reduce(
+        (fragment, answerButton, index) => {
+            const answerButtonListItem = document.createElement("li");
+            answerButtonListItem.appendChild(answerButton.HTMLElement);
 
+            if (index % 2 === 0) { fragment.left.appendChild(answerButtonListItem); }
+            else {fragment.right.appendChild(answerButtonListItem); }
 
+            return fragment;
+        },
+        {left: document.createDocumentFragment(), right: document.createDocumentFragment()}
+    );
 
+    clearAnswerLists();
 
+    leftAnswerButtonList?.appendChild(answerButtonListItems.left);
+    rightAnswerButtonList?.appendChild(answerButtonListItems.right);
+};
 
+const setQuestionPromptAndAnswers = (question: Question) =>
+{
+    setParagraphPromptText(question.promptText);
 
+    const answerButtons = question.answers.map(answer => {
+        const answerButtonHTMLElement = answerButton(answer);
 
+        answerButtonHTMLElement.HTMLElement.addEventListener("click", event =>{
+            clickedAnswerButton = event.target;
+        });
 
-// export class JsQuiz implements IterableIterator<boolean>
-// {
-//     readonly #arr: readonly boolean[] = [];
-//     #iterIndex: number = 0;
+        return answerButtonHTMLElement;
+    });
 
-//     public next(): IteratorResult<boolean>
-//     {
-//         if (this.#iterIndex < this.#arr.length)
-//         {
-//             return { done: false, value: this.#arr[this.#iterIndex++] };
-//         }
-//         else
-//         {
-//             this.#iterIndex = 0; // reset the pointer to start for new iterations
-//             return { done: true, value: null };
-//         }
-//     }
-
-//     public [Symbol.iterator](): IterableIterator<boolean>
-//     {
-//         return this;
-//     }
-// }
+    setAnswerLists(question.answers);
+};
