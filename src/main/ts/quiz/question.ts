@@ -24,7 +24,7 @@ export class Question
         this.#answers = Object.freeze(answers.map(answer => Object.isFrozen(answer) ? answer : Object.freeze(createAnswer(answer))));
         this.#correctAnswers = Object.freeze(this.#answers.filter(answer => answer.isCorrect));
         this.#hasMultipleCorrect = this.#correctAnswers.length !== 1;
-        this.#string = `${new.target.name} {prompt: "${this.#prompt}", answers: [${this.#answers.map(answer => `{answer: "${answer.answer}", isCorrect: ${answer.isCorrect}}`).join(", ")}]}`;
+        this.#string = `${new.target.name} {prompt: "${this.#prompt}", answers: [${this.#answers.map(answer => `{answer: "${answer.text}", isCorrect: ${answer.isCorrect}}`).join(", ")}]}`;
     }
 
     public get prompt(): string { return this.#prompt; }
