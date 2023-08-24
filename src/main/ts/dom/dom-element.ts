@@ -3,9 +3,14 @@ export abstract class DOMElement<ElementType extends HTMLElement>
     readonly #domElement: ElementType;
     readonly #originalDisplayStatus: string;
 
-    protected constructor(elementType: NonNullable<ElementType>)
+    protected constructor(htmlElement: NonNullable<ElementType>)
     {
-        this.#domElement = elementType;
+        if (htmlElement === undefined || htmlElement === null)
+        {
+            throw new TypeError(`${new.target.name}: ${htmlElement} HTML element.`);
+        }
+
+        this.#domElement = htmlElement;
         this.#originalDisplayStatus = this.#domElement.style.display;
     }
 
