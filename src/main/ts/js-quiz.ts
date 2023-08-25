@@ -30,12 +30,19 @@ const startQuiz = () =>
 
 startButton.domElement?.addEventListener("click", startQuiz);
 
-let clickedAnswerButton: EventTarget | null;
-
 
 const answerButtonClickEvent = (event: MouseEvent) =>
 {
-    clickedAnswerButton = event.target;
+    const target = event.target;
+
+    console.log(target);
+
+    if (target instanceof HTMLButtonElement)
+    {
+        const clickedAnswerIsCorrect = target.dataset.isCorrect === "true";
+        console.log(`Answer is correct: ${clickedAnswerIsCorrect}`);
+    }
+
 
     const nextQuestion: IteratorResult<Question> = questionsIterableIterator.next();
 
@@ -45,7 +52,7 @@ const answerButtonClickEvent = (event: MouseEvent) =>
     }
     else
     {
-        console.log("\n".repeat(4) + "TEST DOES NOT HAVE QUESTIONS STILL" + "\n".repeat(4));
+        console.log("\n".repeat(4) + "TEST DOES NOT HAVE MORE QUESTIONS" + "\n".repeat(4));
     }
 };
 
