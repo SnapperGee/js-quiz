@@ -4,8 +4,11 @@ import { domElement} from "./dom/dom-element.js";
 import {questions as allQuestions} from "./questions.js";
 import { type Answer } from "./quiz/answer.js";
 import { Question } from "./quiz/question.js";
+import { shuffleArray } from "./util.js";
 
-const questions: readonly Question[] = allQuestions;
+const questions: readonly Question[] = shuffleArray(allQuestions);
+
+const questionsIterableIterator: IterableIterator<Question> = questions.values();
 
 const paragraphPrompt = domElement(document.querySelector("p"));
 const setParagraphPromptText = (aString: string): void  => {paragraphPrompt.textContent = aString; };
@@ -21,28 +24,48 @@ const showAnswerColumns = (): void => answerColumns.forEach(answerColumn => (<HT
 const startQuiz = () =>
 {
     removeStartButtonColumn();
-    setQuestionPromptAndAnswers(questions[3]);
     showAnswerColumns();
+    setQuestionPromptAndAnswers(questionsIterableIterator.next().value);
 };
 
 startButton.domElement?.addEventListener("click", startQuiz);
 
 let clickedAnswerButton: EventTarget | null;
+
+
+const answerButtonClickEvent = (event: MouseEvent) =>
+{
+    clickedAnswerButton = event.target;
+
+    const nextQuestion: IteratorResult<Question> = questionsIterableIterator.next();
+
+    if (nextQuestion?.value !== undefined)
+    {
+        setQuestionPromptAndAnswers(nextQuestion.value);
+    }
+    else
+    {
+        console.log("\n".repeat(4) + "TEST DOES NOT HAVE QUESTIONS STILL" + "\n".repeat(4));
+    }
+};
+
+
+
+
+
 const leftAnswerButtonList = document.getElementById("leftAnswerButtonList");
 const rightAnswerButtonList = document.getElementById("rightAnswerButtonList");
 
 const clearAnswerLists = (): void => {leftAnswerButtonList!.innerHTML = ""; rightAnswerButtonList!.innerHTML = ""; };
 
 const clearAndSetAnswerLists = (answers: readonly Answer[]) => {
-    const answerButtons: readonly AnswerButton[] = answers.map(answer => {
+    const answerButtons: readonly AnswerButton[] = shuffleArray(answers.map(answer => {
         const ab = answerButton(answer);
 
-        ab.HTMLElement.addEventListener("click", event =>{
-            clickedAnswerButton = event.target;
-        });
+        ab.HTMLElement.addEventListener("click", answerButtonClickEvent);
 
         return ab;
-    });
+    }));
 
     const answerButtonListItems: {left: DocumentFragment, right: DocumentFragment} = answerButtons.reduce(
         (fragment, answerButton, index) => {
