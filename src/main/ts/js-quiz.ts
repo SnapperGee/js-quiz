@@ -1,3 +1,5 @@
+// The code in the if block on line
+
 import { button } from "./dom/button.js";
 import { type AnswerButton, answerButton } from "./dom/create/answer-button.js";
 import { domElement} from "./dom/dom-element.js";

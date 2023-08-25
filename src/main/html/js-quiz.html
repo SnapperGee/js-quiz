@@ -7,30 +7,33 @@
   <link href="../css/js-quiz.css" rel="stylesheet" />
 </head>
 <body>
-  <div class="h-100 d-flex align-items-center justify-content-center">
-    <main>
-      <section class="row-cols-1 text-center" id="prompt">
-        <p class="text-wrap fs-2">Use the button below to start the quiz on JavaScript fundamentals.</p>
-      </section>
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <main>
+            <section class="row-cols-1 text-center" id="prompt">
+            <p class="text-wrap fs-2">Use the button below to start the quiz on JavaScript fundamentals.</p>
+            </section>
 
-      <div class="row text-center">
+        <div class="row text-center">
 
-        <section class="col" id="startButtonColumn">
-          <button id="startButton" class="btn btn-primary btn-lg fs-1 fw-bold button" type="button">Start</button>
-        </section>
+            <section class="col" id="startButtonColumn">
+                <button id="startButton" class="btn btn-primary btn-lg fs-1 fw-bold button" type="button">Start</button>
+            </section>
 
-        <section class="col answerColumn" id="leftAnswerColumn">
-          <ul class="list-group answerButtonList" id="leftAnswerButtonList">
-          </ul>
-        </section>
+            <section class="col answerColumn" id="leftAnswerColumn">
+                <ul class="list-group answerButtonList" id="leftAnswerButtonList"></ul>
+            </section>
 
-        <section class="col answerColumn" id="rightAnswerColumn">
-          <ul class="list-group answerButtonList" id="rightAnswerButtonList"></ul>
-        </section>
+            <section class="col answerColumn" id="rightAnswerColumn">
+                <ul class="list-group answerButtonList" id="rightAnswerButtonList"></ul>
+            </section>
 
-      </div>
-    </main>
-  </div>
+        </div>
+
+        <div class="row text-center" id="correctIncorrectMessage">
+            <p class="fs-1 fw-bold">Correct! <span id="correctIncorrectMsgEmoji">&#128512; &#128522; &#128513; &#129395; &#127881; &#129346; &#127870;</span></p>
+        </div>
+        </main>
+    </div>
 
   <script src="../js/js-quiz.js" type="module"></script>
 </body>
