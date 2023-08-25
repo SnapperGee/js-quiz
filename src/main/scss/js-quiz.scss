@@ -18,6 +18,10 @@ ul {
     padding: 15px 70px;
 }
 
+#correctIncorrectMessage {
+    display: none;
+}
+
 // Prevent answer buttons from stacking directly on each other
 .answerButtonList li:not(:first-child) {
     margin-top: 40px;

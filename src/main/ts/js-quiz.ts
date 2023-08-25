@@ -7,6 +7,7 @@ import {questions as allQuestions} from "./questions.js";
 import { type Answer } from "./quiz/answer.js";
 import { Question } from "./quiz/question.js";
 import { shuffleArray } from "./util.js";
+import { randomPositiveEmoji, randomNegativeEmoji } from "./dom/create/correct-incorrect-message.js";
 
 const questions: readonly Question[] = shuffleArray(allQuestions);
 
@@ -22,6 +23,32 @@ const startButton = button(<HTMLButtonElement> document.getElementById("startBut
 
 const answerColumns = Object.freeze(Array.from(document.getElementsByClassName("answerColumn")));
 const showAnswerColumns = (): void => answerColumns.forEach(answerColumn => (<HTMLElement> answerColumn).style.display = "block" );
+
+const correctIncorrectMessage = <HTMLDivElement> document.getElementById("correctIncorrectMessage");
+const correctOrIncorrectText = <HTMLSpanElement> document.getElementById("correctOrIncorrect");
+const correctOrIncorrectEmoji = <HTMLSpanElement> document.getElementById("correctOrIncorrectEmoji");
+
+const showCorrectIncorrectMessage = (): void =>
+{
+    correctIncorrectMessage.style.display = "block";
+};
+
+const hideCorrectIncorrectMessage = (): void =>
+{
+    correctIncorrectMessage.style.display = "none";
+};
+
+const setCorrectOrIncorrectText = (aString: string): void =>
+{
+    correctOrIncorrectText.textContent = "";
+    correctOrIncorrectText.textContent = aString;
+};
+
+const setCorrectOrIncorrectEmoji = (aString: string): void =>
+{
+    correctOrIncorrectEmoji.textContent = "";
+    correctOrIncorrectEmoji.textContent = aString;
+};
 
 const startQuiz = () =>
 {
@@ -40,7 +67,15 @@ const answerButtonClickEvent = (event: MouseEvent) =>
 
         if (clickedAnswerIsCorrect)
         {
-
+            setCorrectOrIncorrectText("Correct!");
+            setCorrectOrIncorrectEmoji(randomPositiveEmoji());
+            showCorrectIncorrectMessage();
+        }
+        else
+        {
+            setCorrectOrIncorrectText("Incorrect...");
+            setCorrectOrIncorrectEmoji(randomNegativeEmoji());
+            showCorrectIncorrectMessage();
         }
     }
 
