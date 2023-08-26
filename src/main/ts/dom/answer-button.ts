@@ -4,6 +4,7 @@ const answerButtonClassList: readonly string[] = Object.freeze([
     "btn",
     "btn-primary",
     "btn-lg",
+    "shadow",
     "fs-3",
     "fw-bold",
     "text-nowrap",
