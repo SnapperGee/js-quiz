@@ -9,7 +9,7 @@
       "module": "es2020",
       "noEmitOnError": true,
       "noImplicitOverride": true,
-      "outDir": "./src/main/js",
+      "outDir": "./build/js",
       "preserveConstEnums": false,
       "rootDir": "./src/main/ts",
       "sourceMap": false,

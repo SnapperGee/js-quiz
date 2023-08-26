@@ -20,11 +20,12 @@
   },
   "homepage": "https://github.com/SnapperGee/js-quiz#readme",
   "scripts": {
-    "build": "npm run ts && npm run scss",
-    "clean": "rm -rf ./src/main/js ./src/main/css",
-    "prescss": "rm -rf ./src/main/css",
-    "prets": "rm -rf ./src/main/js",
-    "scss": "sass --no-source-map ./src/main/scss:./src/main/css",
+    "build": "npm run ts && npm run scss && npm run html",
+    "html": "cp -r ./src/main/html ./build/html",
+    "prehtml": "rm -rf ./build/html",
+    "prescss": "rm -rf ./build/css",
+    "prets": "rm -rf ./build/js",
+    "scss": "sass --no-source-map ./src/main/scss:./build/css",
     "ts": "tsc -p ./tsconfig.json"
   },
   "devDependencies": {
