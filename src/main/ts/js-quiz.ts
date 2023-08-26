@@ -1,12 +1,12 @@
 // The code in the if block on line
 
 // import { button } from "./dom/button.js";
-import { type AnswerButton, answerButton } from "./dom/create/answer-button.js";
+import { type AnswerButton, answerButton } from "./dom/answer-button.js";
 import {questions as allQuestions} from "./questions.js";
 import { type Answer } from "./quiz/answer.js";
 import { Question } from "./quiz/question.js";
 import { shuffleArray } from "./util.js";
-import { randomPositiveEmoji, randomNegativeEmoji } from "./dom/create/correct-incorrect-message.js";
+import { randomPositiveEmoji, randomNegativeEmoji } from "./dom/correct-incorrect-message.js";
 
 const questions: readonly Question[] = shuffleArray(allQuestions);
 

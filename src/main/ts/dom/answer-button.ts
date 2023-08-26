@@ -1,4 +1,4 @@
-import { answer, type Answer } from "../../quiz/answer.js";
+import { answer, type Answer } from "../quiz/answer.js";
 
 const answerButtonClassList: readonly string[] = Object.freeze([
     "btn",
