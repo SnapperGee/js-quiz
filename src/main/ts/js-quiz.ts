@@ -23,18 +23,30 @@ const startButton = <HTMLButtonElement> document.getElementById("startButton");
 const answerColumns = Object.freeze(Array.from(document.getElementsByClassName("answerColumn")));
 const showAnswerColumns = (): void => answerColumns.forEach(answerColumn => (<HTMLElement> answerColumn).style.display = "block" );
 
-const correctIncorrectMessage = <HTMLDivElement> document.getElementById("correctIncorrectMessage");
-const correctOrIncorrectText = <HTMLSpanElement> document.getElementById("correctOrIncorrect");
+const correctIncorrectMessageRow = <HTMLDivElement> document.getElementById("correctIncorrectMessageRow");
+const correctOrIncorrectText = <HTMLSpanElement> document.getElementById("correctOrIncorrectText");
 const correctOrIncorrectEmoji = <HTMLSpanElement> document.getElementById("correctOrIncorrectEmoji");
+
+const timedElementHider = (htmlElement: HTMLElement, time: number): void =>
+{
+    let timer = time;
+
+    const timeIntervale = setInterval(() =>
+    {
+        timer--;
+
+        if (timer >= 0)
+        {
+            clearInterval(timeIntervale);
+            htmlElement.style.display = "none";
+        }
+    },
+    1000);
+};
 
 const showCorrectIncorrectMessage = (): void =>
 {
-    correctIncorrectMessage.style.display = "block";
-};
-
-const hideCorrectIncorrectMessage = (): void =>
-{
-    correctIncorrectMessage.style.display = "none";
+    correctIncorrectMessageRow.style.display = "block";
 };
 
 const setCorrectOrIncorrectText = (aString: string): void =>
@@ -76,6 +88,8 @@ const answerButtonClickEvent = (event: MouseEvent) =>
             setCorrectOrIncorrectEmoji(randomNegativeEmoji());
             showCorrectIncorrectMessage();
         }
+
+        timedElementHider(correctIncorrectMessageRow, 4);
     }
 
     const nextQuestion: IteratorResult<Question> = questionsIterableIterator.next();
