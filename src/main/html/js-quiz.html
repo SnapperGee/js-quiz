@@ -7,6 +7,12 @@
   <link href="../css/js-quiz.css" rel="stylesheet" />
 </head>
 <body>
+    <noscript>
+        <div class="alert alert-danger text-center">
+            <p class="fs-1 lh-lg"> JavaScript is either disabled or not functioning correctly.</p>
+        </div>
+    </noscript>
+
     <div class="h-100 d-flex align-items-center justify-content-center">
         <main>
             <section class="row-cols-1 text-center" id="prompt">
@@ -19,11 +25,11 @@
                 <button id="startButton" class="btn btn-primary btn-lg fs-1 fw-bold button" type="button">Start</button>
             </section>
 
-            <section class="d-none col answerColumn" id="leftAnswerColumn">
+            <section class="col answerColumn" id="leftAnswerColumn">
                 <ul class="list-group answerButtonList" id="leftAnswerButtonList"></ul>
             </section>
 
-            <section class="d-none col answerColumn" id="rightAnswerColumn">
+            <section class="col answerColumn" id="rightAnswerColumn">
                 <ul class="list-group answerButtonList" id="rightAnswerButtonList"></ul>
             </section>
 
