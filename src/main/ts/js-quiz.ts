@@ -1,8 +1,7 @@
 // The code in the if block on line
 
-import { button } from "./dom/button.js";
+// import { button } from "./dom/button.js";
 import { type AnswerButton, answerButton } from "./dom/create/answer-button.js";
-import { domElement} from "./dom/dom-element.js";
 import {questions as allQuestions} from "./questions.js";
 import { type Answer } from "./quiz/answer.js";
 import { Question } from "./quiz/question.js";
@@ -13,13 +12,13 @@ const questions: readonly Question[] = shuffleArray(allQuestions);
 
 const questionsIterableIterator: IterableIterator<Question> = questions.values();
 
-const paragraphPrompt = domElement(document.querySelector("p"));
-const setParagraphPromptText = (aString: string): void  => {paragraphPrompt.textContent = aString; };
+const paragraphPrompt = document.querySelector("p");
+const setParagraphPromptText = (aString: string): void  => {paragraphPrompt!.textContent = aString; };
 
 const startButtonColumn = document.getElementById("startButtonColumn");
 const removeStartButtonColumn = (): void => startButtonColumn?.remove();
 
-const startButton = button(<HTMLButtonElement> document.getElementById("startButton"));
+const startButton = <HTMLButtonElement> document.getElementById("startButton");
 
 const answerColumns = Object.freeze(Array.from(document.getElementsByClassName("answerColumn")));
 const showAnswerColumns = (): void => answerColumns.forEach(answerColumn => (<HTMLElement> answerColumn).style.display = "block" );
@@ -57,7 +56,7 @@ const startQuiz = () =>
     setQuestionPromptAndAnswers(questionsIterableIterator.next().value);
 };
 
-startButton.domElement?.addEventListener("click", startQuiz);
+startButton.addEventListener("click", startQuiz);
 
 const answerButtonClickEvent = (event: MouseEvent) =>
 {
