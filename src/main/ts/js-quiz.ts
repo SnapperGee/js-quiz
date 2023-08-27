@@ -1,11 +1,8 @@
-// The code in the if block on line
-
-// import { button } from "./dom/button.js";
 import { type AnswerButton, answerButton } from "./dom/answer-button.js";
 import {questions as allQuestions} from "./questions.js";
 import { type Answer } from "./quiz/answer.js";
 import { Question } from "./quiz/question.js";
-import { shuffleArray } from "./util.js";
+import { shuffleArray, timedElementHider } from "./util.js";
 import { randomPositiveEmoji, randomNegativeEmoji } from "./dom/correct-incorrect-message.js";
 
 const questions: readonly Question[] = shuffleArray(allQuestions);
@@ -26,23 +23,6 @@ const showAnswerColumns = (): void => answerColumns.forEach(answerColumn => (<HT
 const correctIncorrectMessageRow = <HTMLDivElement> document.getElementById("correctIncorrectMessageRow");
 const correctOrIncorrectText = <HTMLSpanElement> document.getElementById("correctOrIncorrectText");
 const correctOrIncorrectEmoji = <HTMLSpanElement> document.getElementById("correctOrIncorrectEmoji");
-
-const timedElementHider = (htmlElement: HTMLElement, time: number): void =>
-{
-    let timer = time;
-
-    const timeIntervale = setInterval(() =>
-    {
-        timer--;
-
-        if (timer >= 0)
-        {
-            clearInterval(timeIntervale);
-            htmlElement.style.display = "none";
-        }
-    },
-    1000);
-};
 
 const showCorrectIncorrectMessage = (): void =>
 {
