@@ -1,6 +1,5 @@
-import { createAnswerButton } from "./dom-component/create-answer-button.js";
+import { type AnswerListsController, answerListsController } from "./dom-component/answer-lists-controller.js";
 import {questions as allQuestions} from "./questions.js";
-import { type Answer } from "./quiz/answer.js";
 import { Question } from "./quiz/question.js";
 import { shuffleArray, timedElementHider, randomEmoji } from "./util.js";
 
@@ -82,34 +81,13 @@ const answerButtonClickEvent = (event: MouseEvent) =>
     }
 };
 
-const clearAndSetAnswerLists = (leftAnswerButtonList: HTMLUListElement, rightAnswerButtonList: HTMLUListElement, answers: readonly Answer[]): void => {
-    const answerButtons: readonly HTMLButtonElement[] = shuffleArray(answers.map(answer => createAnswerButton(answer, answerButtonClickEvent)));
+const leftAnswerButtonList = document.getElementById("leftAnswerButtonList");
+const rightAnswerButtonList = document.getElementById("rightAnswerButtonList");
 
-    const answerButtonListItems: {left: DocumentFragment, right: DocumentFragment} = answerButtons.reduce(
-        (fragment, answerButton, index) => {
-            const answerButtonListItem = document.createElement("li");
-            answerButtonListItem.appendChild(answerButton);
-
-            if (index % 2 === 0) { fragment.left.appendChild(answerButtonListItem); }
-            else {fragment.right.appendChild(answerButtonListItem); }
-
-            return fragment;
-        },
-        {left: document.createDocumentFragment(), right: document.createDocumentFragment()}
-    );
-
-    leftAnswerButtonList!.innerHTML = "";
-    rightAnswerButtonList!.innerHTML = "";
-
-    leftAnswerButtonList?.appendChild(answerButtonListItems.left);
-    rightAnswerButtonList?.appendChild(answerButtonListItems.right);
-};
-
-const leftAnswerButtonList = <HTMLUListElement> document.getElementById("leftAnswerButtonList");
-const rightAnswerButtonList = <HTMLUListElement> document.getElementById("rightAnswerButtonList");
+const answerLists: AnswerListsController = answerListsController(leftAnswerButtonList, rightAnswerButtonList, answerButtonClickEvent);
 
 const setQuestionPromptAndAnswers = (question: Question) =>
 {
     setParagraphPromptText(question.promptText);
-    clearAndSetAnswerLists(leftAnswerButtonList, rightAnswerButtonList, question.answers);
+    answerLists.overwriteAnswerListItems(question.answers);
 };
