@@ -1,9 +1,9 @@
-import { type AnswerButton, answerButton } from "./dom/answer-button.js";
+import { type AnswerButton, answerButton } from "./dom-component/answer-button.js";
 import {questions as allQuestions} from "./questions.js";
 import { type Answer } from "./quiz/answer.js";
 import { Question } from "./quiz/question.js";
 import { shuffleArray, timedElementHider } from "./util.js";
-import { randomPositiveEmoji, randomNegativeEmoji } from "./dom/correct-incorrect-message.js";
+import { randomPositiveEmoji, randomNegativeEmoji } from "./dom-component/correct-incorrect-message.js";
 
 const questions: readonly Question[] = shuffleArray(allQuestions);
 
