@@ -1,6 +1,6 @@
 import { answer, type Answer } from "../quiz/answer.js";
 
-type htmlButtonElementClickEvent = (this: HTMLButtonElement, mouseEvent: MouseEvent) => unknown;
+export type HTMLButtonElementClickEvent = (this: HTMLButtonElement, mouseEvent: MouseEvent) => unknown;
 
 const answerButtonClassList: readonly string[] = Object.freeze([
     "btn",
@@ -14,12 +14,12 @@ const answerButtonClassList: readonly string[] = Object.freeze([
     "answerButton"
 ]);
 
-export function createAnswerButton(answerText: NonNullable<string>, isCorrect: boolean, clickEventFunction?: htmlButtonElementClickEvent): HTMLButtonElement;
-export function createAnswerButton(answer: NonNullable<Answer>, clickEventFunction?: htmlButtonElementClickEvent): HTMLButtonElement;
-export function createAnswerButton(answerOrText: NonNullable<string | Answer>, isCorrectOrClickEventFunction?: boolean | htmlButtonElementClickEvent, clickEventFunction?: htmlButtonElementClickEvent): HTMLButtonElement
+export function createAnswerButton(answerText: NonNullable<string>, isCorrect: boolean, clickEventFunction?: HTMLButtonElementClickEvent): HTMLButtonElement;
+export function createAnswerButton(answer: NonNullable<Answer>, clickEventFunction?: HTMLButtonElementClickEvent): HTMLButtonElement;
+export function createAnswerButton(answerOrText: NonNullable<string | Answer>, isCorrectOrClickEventFunction?: boolean | HTMLButtonElementClickEvent, clickEventFunction?: HTMLButtonElementClickEvent): HTMLButtonElement
 {
     let _answer: Answer;
-    let _clickEventFunction: htmlButtonElementClickEvent | undefined;
+    let _clickEventFunction: HTMLButtonElementClickEvent | undefined;
 
     if (typeof answerOrText === "string")
     {
