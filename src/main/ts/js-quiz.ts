@@ -59,15 +59,14 @@ const answerButtonClickEvent = (event: MouseEvent) =>
         {
             setCorrectOrIncorrectText("Correct!");
             setCorrectOrIncorrectEmoji(randomEmoji.positive());
-            showCorrectIncorrectMessage();
         }
         else
         {
             setCorrectOrIncorrectText("Incorrect...");
             setCorrectOrIncorrectEmoji(randomEmoji.negative());
-            showCorrectIncorrectMessage();
         }
 
+        showCorrectIncorrectMessage();
         timedElementHider(correctIncorrectMessageRow, 4);
     }
 
