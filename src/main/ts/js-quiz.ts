@@ -1,4 +1,4 @@
-import { createAnswerButton } from "./dom-component/answer-button.js";
+import { createAnswerButton } from "./dom-component/create-answer-button.js";
 import {questions as allQuestions} from "./questions.js";
 import { type Answer } from "./quiz/answer.js";
 import { Question } from "./quiz/question.js";
