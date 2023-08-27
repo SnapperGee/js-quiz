@@ -1,4 +1,4 @@
-import { type AnswerButton, answerButton } from "./dom-component/answer-button.js";
+import { createAnswerButton } from "./dom-component/answer-button.js";
 import {questions as allQuestions} from "./questions.js";
 import { type Answer } from "./quiz/answer.js";
 import { Question } from "./quiz/question.js";
@@ -85,10 +85,10 @@ const answerButtonClickEvent = (event: MouseEvent) =>
 };
 
 const clearAndSetAnswerLists = (leftAnswerButtonList: HTMLLIElement, rightAnswerButtonList: HTMLLIElement, answers: readonly Answer[]): void => {
-    const answerButtons: readonly AnswerButton[] = shuffleArray(answers.map(answer => {
-        const ab = answerButton(answer);
+    const answerButtons: readonly HTMLButtonElement[] = shuffleArray(answers.map(answer => {
+        const ab = createAnswerButton(answer);
 
-        ab.HTMLElement.addEventListener("click", answerButtonClickEvent);
+        ab.addEventListener("click", answerButtonClickEvent);
 
         return ab;
     }));
@@ -96,7 +96,7 @@ const clearAndSetAnswerLists = (leftAnswerButtonList: HTMLLIElement, rightAnswer
     const answerButtonListItems: {left: DocumentFragment, right: DocumentFragment} = answerButtons.reduce(
         (fragment, answerButton, index) => {
             const answerButtonListItem = document.createElement("li");
-            answerButtonListItem.appendChild(answerButton.HTMLElement);
+            answerButtonListItem.appendChild(answerButton);
 
             if (index % 2 === 0) { fragment.left.appendChild(answerButtonListItem); }
             else {fragment.right.appendChild(answerButtonListItem); }

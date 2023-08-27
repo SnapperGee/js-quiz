@@ -12,40 +12,34 @@ const answerButtonClassList: readonly string[] = Object.freeze([
     "answerButton"
 ]);
 
-export class AnswerButton
+export function createAnswerButton(answerText: NonNullable<string>, isCorrect: boolean): HTMLButtonElement;
+export function createAnswerButton(answer: NonNullable<Answer>): HTMLButtonElement;
+export function createAnswerButton(answerOrText: NonNullable<string | Answer>, isCorrect?: boolean): HTMLButtonElement
 {
-    readonly #answer: Answer;
-    readonly #HTMLElement: HTMLButtonElement;
+    let _answer: Answer;
 
-    public constructor(answer: NonNullable<Answer>)
-    {
-        this.#answer = answer;
-
-        const buttonHTMLElement = document.createElement("button");
-
-        buttonHTMLElement.setAttribute("type", "button");
-        buttonHTMLElement.classList.add(...answerButtonClassList);
-        buttonHTMLElement.textContent = this.#answer.text;
-        buttonHTMLElement.dataset.isCorrect = String(this.#answer.isCorrect);
-
-        this.#HTMLElement = buttonHTMLElement;
-    }
-
-    public get HTMLElement(): HTMLButtonElement { return this.#HTMLElement; }
-}
-
-export function answerButton(answerText: NonNullable<string>, isCorrect: boolean): AnswerButton;
-export function answerButton(answer: NonNullable<Answer>): AnswerButton;
-export function answerButton(answerOrText: NonNullable<string | Answer>, isCorrect?: boolean): AnswerButton
-{
     if (typeof answerOrText === "string")
     {
         if (isCorrect === undefined || isCorrect === null)
         {
-            throw new TypeError(`${answerButton.name}: ${isCorrect} is correct.`);
+            throw new TypeError(`${createAnswerButton.name}: ${isCorrect} is correct.`);
         }
 
-        return new AnswerButton(answer(answerOrText, isCorrect));
+        _answer = answer(answerOrText, isCorrect);
     }
-    return new AnswerButton(answerOrText);
+    else
+    {
+        _answer = answerOrText;
+    }
+
+    const buttonHTMLElement = document.createElement("button");
+
+    buttonHTMLElement.setAttribute("type", "button");
+    buttonHTMLElement.classList.add(...answerButtonClassList);
+    buttonHTMLElement.textContent = _answer.text;
+    buttonHTMLElement.dataset.isCorrect = String(_answer.isCorrect);
+
+    return buttonHTMLElement;
 }
+
+export default createAnswerButton;
