@@ -41,3 +41,16 @@ export const timedElementHider = (htmlElement: HTMLElement, time: number): void 
     },
     1000);
 };
+
+const positiveEmojis: readonly string[] = Object.freeze([
+    ":)", ":D", ";)", ";D", "☺", "😀", "😁", "😃", "🙂", "😊", "😌", "🤩", "🥳", "🎉", "🥂", "🍾", "👍", "👌", "🌟", "⭐"
+]);
+
+const negativeEmojis: readonly string[] = Object.freeze([
+    ":(", ">:(", "☹", "😢", "😭", "😠", "😑", "😔", "😕", "😖", "😟", "😣", "😩", "😱", "🤬", "👎"
+]);
+
+export const randomEmoji = Object.freeze({
+    positive: (): string => Object.freeze(positiveEmojis[Math.floor(Math.random() * positiveEmojis.length)]),
+    negative: (): string => Object.freeze(negativeEmojis[Math.floor(Math.random() * negativeEmojis.length)])
+});

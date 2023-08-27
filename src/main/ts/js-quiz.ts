@@ -2,8 +2,7 @@ import { createAnswerButton } from "./dom-component/create-answer-button.js";
 import {questions as allQuestions} from "./questions.js";
 import { type Answer } from "./quiz/answer.js";
 import { Question } from "./quiz/question.js";
-import { shuffleArray, timedElementHider } from "./util.js";
-import { random } from "./dom-component/positive-and-negative-emojis.js";
+import { shuffleArray, timedElementHider, randomEmoji } from "./util.js";
 
 const questions: readonly Question[] = shuffleArray(allQuestions);
 
@@ -59,13 +58,13 @@ const answerButtonClickEvent = (event: MouseEvent) =>
         if (clickedAnswerIsCorrect)
         {
             setCorrectOrIncorrectText("Correct!");
-            setCorrectOrIncorrectEmoji(random.positiveEmoji());
+            setCorrectOrIncorrectEmoji(randomEmoji.positive());
             showCorrectIncorrectMessage();
         }
         else
         {
             setCorrectOrIncorrectText("Incorrect...");
-            setCorrectOrIncorrectEmoji(random.negativeEmoji());
+            setCorrectOrIncorrectEmoji(randomEmoji.negative());
             showCorrectIncorrectMessage();
         }
 
