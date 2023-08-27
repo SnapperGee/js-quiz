@@ -84,12 +84,7 @@ const answerButtonClickEvent = (event: MouseEvent) =>
     }
 };
 
-const leftAnswerButtonList = document.getElementById("leftAnswerButtonList");
-const rightAnswerButtonList = document.getElementById("rightAnswerButtonList");
-
-const clearAnswerLists = (): void => {leftAnswerButtonList!.innerHTML = ""; rightAnswerButtonList!.innerHTML = ""; };
-
-const clearAndSetAnswerLists = (answers: readonly Answer[]) => {
+const clearAndSetAnswerLists = (leftAnswerButtonList: HTMLLIElement, rightAnswerButtonList: HTMLLIElement, answers: readonly Answer[]): void => {
     const answerButtons: readonly AnswerButton[] = shuffleArray(answers.map(answer => {
         const ab = answerButton(answer);
 
@@ -111,14 +106,18 @@ const clearAndSetAnswerLists = (answers: readonly Answer[]) => {
         {left: document.createDocumentFragment(), right: document.createDocumentFragment()}
     );
 
-    clearAnswerLists();
+    leftAnswerButtonList!.innerHTML = "";
+    rightAnswerButtonList!.innerHTML = "";
 
     leftAnswerButtonList?.appendChild(answerButtonListItems.left);
     rightAnswerButtonList?.appendChild(answerButtonListItems.right);
 };
 
+const leftAnswerButtonList = <HTMLLIElement> document.getElementById("leftAnswerButtonList");
+const rightAnswerButtonList = <HTMLLIElement> document.getElementById("rightAnswerButtonList");
+
 const setQuestionPromptAndAnswers = (question: Question) =>
 {
     setParagraphPromptText(question.promptText);
-    clearAndSetAnswerLists(question.answers);
+    clearAndSetAnswerLists(leftAnswerButtonList, rightAnswerButtonList, question.answers);
 };
