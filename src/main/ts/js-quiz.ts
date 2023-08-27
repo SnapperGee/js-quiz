@@ -3,7 +3,7 @@ import {questions as allQuestions} from "./questions.js";
 import { type Answer } from "./quiz/answer.js";
 import { Question } from "./quiz/question.js";
 import { shuffleArray, timedElementHider } from "./util.js";
-import { randomPositiveEmoji, randomNegativeEmoji } from "./dom-component/correct-incorrect-message.js";
+import { random } from "./dom-component/correct-incorrect-message.js";
 
 const questions: readonly Question[] = shuffleArray(allQuestions);
 
@@ -59,13 +59,13 @@ const answerButtonClickEvent = (event: MouseEvent) =>
         if (clickedAnswerIsCorrect)
         {
             setCorrectOrIncorrectText("Correct!");
-            setCorrectOrIncorrectEmoji(randomPositiveEmoji());
+            setCorrectOrIncorrectEmoji(random.positiveEmoji());
             showCorrectIncorrectMessage();
         }
         else
         {
             setCorrectOrIncorrectText("Incorrect...");
-            setCorrectOrIncorrectEmoji(randomNegativeEmoji());
+            setCorrectOrIncorrectEmoji(random.negativeEmoji());
             showCorrectIncorrectMessage();
         }
 
