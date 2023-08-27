@@ -1,5 +1,7 @@
 import { answer, type Answer } from "../quiz/answer.js";
 
+type htmlButtonElementClickEvent = (this: HTMLButtonElement, mouseEvent: MouseEvent) => unknown;
+
 const answerButtonClassList: readonly string[] = Object.freeze([
     "btn",
     "btn-primary",
@@ -12,24 +14,37 @@ const answerButtonClassList: readonly string[] = Object.freeze([
     "answerButton"
 ]);
 
-export function createAnswerButton(answerText: NonNullable<string>, isCorrect: boolean): HTMLButtonElement;
-export function createAnswerButton(answer: NonNullable<Answer>): HTMLButtonElement;
-export function createAnswerButton(answerOrText: NonNullable<string | Answer>, isCorrect?: boolean): HTMLButtonElement
+export function createAnswerButton(answerText: NonNullable<string>, isCorrect: boolean, clickEventFunction?: htmlButtonElementClickEvent): HTMLButtonElement;
+export function createAnswerButton(answer: NonNullable<Answer>, clickEventFunction?: htmlButtonElementClickEvent): HTMLButtonElement;
+export function createAnswerButton(answerOrText: NonNullable<string | Answer>, isCorrectOrClickEventFunction?: boolean | htmlButtonElementClickEvent, clickEventFunction?: htmlButtonElementClickEvent): HTMLButtonElement
 {
     let _answer: Answer;
+    let _clickEventFunction: htmlButtonElementClickEvent | undefined;
 
     if (typeof answerOrText === "string")
     {
-        if (isCorrect === undefined || isCorrect === null)
+        if (isCorrectOrClickEventFunction === undefined || isCorrectOrClickEventFunction === null)
         {
-            throw new TypeError(`${createAnswerButton.name}: ${isCorrect} is correct.`);
+            throw new TypeError(`${createAnswerButton.name}: ${isCorrectOrClickEventFunction} isCorrect.`);
         }
 
-        _answer = answer(answerOrText, isCorrect);
+        if (typeof isCorrectOrClickEventFunction !== "boolean")
+        {
+            throw new TypeError(`${createAnswerButton.name}: boolean expected for isCorrect, but "${isCorrectOrClickEventFunction}" passed instead.`);
+        }
+
+        _answer = answer(answerOrText, isCorrectOrClickEventFunction);
+        _clickEventFunction = clickEventFunction;
     }
     else
     {
+        if (isCorrectOrClickEventFunction !== undefined && isCorrectOrClickEventFunction !== null && typeof isCorrectOrClickEventFunction !== "function")
+        {
+            throw new TypeError(`${createAnswerButton.name}: function expected for clickE, but "${isCorrectOrClickEventFunction}" passed instead.`);
+        }
+
         _answer = answerOrText;
+        _clickEventFunction = isCorrectOrClickEventFunction;
     }
 
     const buttonHTMLElement = document.createElement("button");
@@ -38,6 +53,11 @@ export function createAnswerButton(answerOrText: NonNullable<string | Answer>, i
     buttonHTMLElement.classList.add(...answerButtonClassList);
     buttonHTMLElement.textContent = _answer.text;
     buttonHTMLElement.dataset.isCorrect = String(_answer.isCorrect);
+
+    if (_clickEventFunction !== undefined && _clickEventFunction !== null)
+    {
+        buttonHTMLElement.addEventListener("click", _clickEventFunction);
+    }
 
     return buttonHTMLElement;
 }

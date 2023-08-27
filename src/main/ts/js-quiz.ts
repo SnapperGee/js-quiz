@@ -83,13 +83,7 @@ const answerButtonClickEvent = (event: MouseEvent) =>
 };
 
 const clearAndSetAnswerLists = (leftAnswerButtonList: HTMLLIElement, rightAnswerButtonList: HTMLLIElement, answers: readonly Answer[]): void => {
-    const answerButtons: readonly HTMLButtonElement[] = shuffleArray(answers.map(answer => {
-        const ab = createAnswerButton(answer);
-
-        ab.addEventListener("click", answerButtonClickEvent);
-
-        return ab;
-    }));
+    const answerButtons: readonly HTMLButtonElement[] = shuffleArray(answers.map(answer => createAnswerButton(answer, answerButtonClickEvent)));
 
     const answerButtonListItems: {left: DocumentFragment, right: DocumentFragment} = answerButtons.reduce(
         (fragment, answerButton, index) => {
