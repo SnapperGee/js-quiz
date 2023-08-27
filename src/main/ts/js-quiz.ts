@@ -82,7 +82,7 @@ const answerButtonClickEvent = (event: MouseEvent) =>
     }
 };
 
-const clearAndSetAnswerLists = (leftAnswerButtonList: HTMLLIElement, rightAnswerButtonList: HTMLLIElement, answers: readonly Answer[]): void => {
+const clearAndSetAnswerLists = (leftAnswerButtonList: HTMLUListElement, rightAnswerButtonList: HTMLUListElement, answers: readonly Answer[]): void => {
     const answerButtons: readonly HTMLButtonElement[] = shuffleArray(answers.map(answer => createAnswerButton(answer, answerButtonClickEvent)));
 
     const answerButtonListItems: {left: DocumentFragment, right: DocumentFragment} = answerButtons.reduce(
@@ -105,8 +105,8 @@ const clearAndSetAnswerLists = (leftAnswerButtonList: HTMLLIElement, rightAnswer
     rightAnswerButtonList?.appendChild(answerButtonListItems.right);
 };
 
-const leftAnswerButtonList = <HTMLLIElement> document.getElementById("leftAnswerButtonList");
-const rightAnswerButtonList = <HTMLLIElement> document.getElementById("rightAnswerButtonList");
+const leftAnswerButtonList = <HTMLUListElement> document.getElementById("leftAnswerButtonList");
+const rightAnswerButtonList = <HTMLUListElement> document.getElementById("rightAnswerButtonList");
 
 const setQuestionPromptAndAnswers = (question: Question) =>
 {
