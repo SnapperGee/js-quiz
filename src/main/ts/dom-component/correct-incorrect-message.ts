@@ -15,3 +15,10 @@ export const randomNegativeEmoji = Object.freeze((): string =>
 {
     return negativeEmojis[Math.floor(Math.random() * negativeEmojis.length)];
 });
+
+export const random = Object.freeze({
+    positiveEmoji: (): string => randomPositiveEmoji(),
+    negativeEmoji: (): string => randomNegativeEmoji()
+});
+
+export default random;
