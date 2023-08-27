@@ -8,10 +8,8 @@ const questions: readonly Question[] = shuffleArray(allQuestions);
 const questionsIterableIterator: IterableIterator<Question> = questions.values();
 
 const paragraphPrompt = document.querySelector("p");
-const setParagraphPromptText = (aString: string): void  => {paragraphPrompt!.textContent = aString; };
 
 const startButtonColumn = document.getElementById("startButtonColumn");
-const removeStartButtonColumn = (): void => startButtonColumn?.remove();
 
 const startButton = <HTMLButtonElement> document.getElementById("startButton");
 
@@ -22,26 +20,9 @@ const correctIncorrectMessageRow = <HTMLDivElement> document.getElementById("cor
 const correctOrIncorrectText = <HTMLSpanElement> document.getElementById("correctOrIncorrectText");
 const correctOrIncorrectEmoji = <HTMLSpanElement> document.getElementById("correctOrIncorrectEmoji");
 
-const showCorrectIncorrectMessage = (): void =>
-{
-    correctIncorrectMessageRow.style.display = "block";
-};
-
-const setCorrectOrIncorrectText = (aString: string): void =>
-{
-    correctOrIncorrectText.textContent = "";
-    correctOrIncorrectText.textContent = aString;
-};
-
-const setCorrectOrIncorrectEmoji = (aString: string): void =>
-{
-    correctOrIncorrectEmoji.textContent = "";
-    correctOrIncorrectEmoji.textContent = aString;
-};
-
 const startQuiz = () =>
 {
-    removeStartButtonColumn();
+    startButtonColumn!.style.display = "none";
     showAnswerColumns();
     setQuestionPromptAndAnswers(questionsIterableIterator.next().value);
 };
@@ -56,16 +37,16 @@ const answerButtonClickEvent = (event: MouseEvent) =>
 
         if (clickedAnswerIsCorrect)
         {
-            setCorrectOrIncorrectText("Correct!");
-            setCorrectOrIncorrectEmoji(randomEmoji.positive());
+            correctOrIncorrectText.textContent = "Correct!";
+            correctOrIncorrectEmoji.textContent = randomEmoji.positive();
         }
         else
         {
-            setCorrectOrIncorrectText("Incorrect...");
-            setCorrectOrIncorrectEmoji(randomEmoji.negative());
+            correctOrIncorrectText.textContent = "Incorrect...";
+            correctOrIncorrectEmoji.textContent = randomEmoji.negative();
         }
 
-        showCorrectIncorrectMessage();
+        correctIncorrectMessageRow.style.display = "block";
         timedElementHider(correctIncorrectMessageRow, 4);
     }
 
@@ -88,6 +69,6 @@ const answerLists: AnswerListsController = answerListsController(leftAnswerButto
 
 const setQuestionPromptAndAnswers = (question: Question) =>
 {
-    setParagraphPromptText(question.promptText);
+    paragraphPrompt!.textContent = question.promptText;
     answerLists.overwriteAnswerListItems(question.answers);
 };
