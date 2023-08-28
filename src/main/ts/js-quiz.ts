@@ -1,7 +1,7 @@
 import { type AnswerListsController, answerListsController } from "./dom-component/answer-lists-controller.js";
 import {questions } from "./questions.js";
 import { Question } from "./quiz/question.js";
-import { shuffleArray, timedElementHider, randomEmoji } from "./util.js";
+import { shuffleArray, randomEmoji } from "./util.js";
 
 const questionsIterableIterator: IterableIterator<Question> = shuffleArray(questions).values();
 
@@ -26,6 +26,8 @@ const startQuiz = () =>
 
 startButton!.addEventListener("click", startQuiz);
 
+let timeout: number;
+
 const answerButtonClickEvent = (event: MouseEvent) =>
 {
     if (event.target instanceof HTMLButtonElement)
@@ -44,7 +46,13 @@ const answerButtonClickEvent = (event: MouseEvent) =>
         }
 
         correctIncorrectMessageRow.style.display = "block";
-        timedElementHider(correctIncorrectMessageRow, 4);
+        clearTimeout(timeout);
+
+        timeout = setTimeout(() =>
+        {
+            correctIncorrectMessageRow.style.display = "none";
+        },
+        1500);
     }
 
     const nextQuestion: IteratorResult<Question> = questionsIterableIterator.next();

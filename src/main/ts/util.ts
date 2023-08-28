@@ -25,23 +25,6 @@ export const shuffleArray = <T>(array: readonly T[]): T[] =>
   return shuffledArray;
 };
 
-export const timedElementHider = (htmlElement: HTMLElement, time: number): void =>
-{
-    let timer = time;
-
-    const timeIntervale = setInterval(() =>
-    {
-        timer--;
-
-        if (timer >= 0)
-        {
-            clearInterval(timeIntervale);
-            htmlElement.style.display = "none";
-        }
-    },
-    1000);
-};
-
 const positiveEmojis: readonly string[] = Object.freeze([
     ":)", ":D", ";)", ";D", "☺", "😀", "😁", "😃", "🙂", "😊", "😌", "🤩", "🥳", "🎉", "🥂", "🍾", "👍", "👌", "🌟", "⭐"
 ]);
