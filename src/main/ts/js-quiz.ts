@@ -13,9 +13,9 @@ const startButton = document.getElementById("startButton");
 
 const answerColumns = Object.freeze(Array.from(document.getElementsByClassName("answerColumn")));
 
-const correctIncorrectMessageRow = <HTMLDivElement> document.getElementById("correctIncorrectMessageRow");
-const correctOrIncorrectText = <HTMLSpanElement> document.getElementById("correctOrIncorrectText");
-const correctOrIncorrectEmoji = <HTMLSpanElement> document.getElementById("correctOrIncorrectEmoji");
+const correctIncorrectMessageRow = document.getElementById("correctIncorrectMessageRow");
+const correctOrIncorrectText = document.getElementById("correctOrIncorrectText");
+const correctOrIncorrectEmoji = document.getElementById("correctOrIncorrectEmoji");
 
 const startQuiz = () =>
 {
@@ -36,21 +36,21 @@ const answerButtonClickEvent = (event: MouseEvent) =>
 
         if (clickedAnswerIsCorrect)
         {
-            correctOrIncorrectText.textContent = "Correct!";
-            correctOrIncorrectEmoji.textContent = randomEmoji.positive();
+            correctOrIncorrectText!.textContent = "Correct!";
+            correctOrIncorrectEmoji!.textContent = randomEmoji.positive();
         }
         else
         {
-            correctOrIncorrectText.textContent = "Incorrect...";
-            correctOrIncorrectEmoji.textContent = randomEmoji.negative();
+            correctOrIncorrectText!.textContent = "Incorrect...";
+            correctOrIncorrectEmoji!.textContent = randomEmoji.negative();
         }
 
-        correctIncorrectMessageRow.style.display = "block";
+        correctIncorrectMessageRow!.style.display = "block";
         clearTimeout(correctIncorrectMsgTimeout);
 
         correctIncorrectMsgTimeout = setTimeout(() =>
         {
-            correctIncorrectMessageRow.style.display = "none";
+            correctIncorrectMessageRow!.style.display = "none";
         },
         1500);
     }
