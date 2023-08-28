@@ -17,9 +17,15 @@ const correctIncorrectMessageRow = document.getElementById("correctIncorrectMess
 const correctOrIncorrectText = document.getElementById("correctOrIncorrectText");
 const correctOrIncorrectEmoji = document.getElementById("correctOrIncorrectEmoji");
 
+const timerContainer = document.getElementById("timerContainer");
+const timerParagraph = document.getElementById("timerParagraph");
+let totalQuizTime = 1000 * 5 * questions.length;
+timerParagraph!.textContent = convertMsToSeconds(totalQuizTime);
+
 const startQuiz = () =>
 {
     startButtonColumn!.style.display = "none";
+    timerContainer!.style.display = "block";
     answerColumns.forEach(answerColumn => (<HTMLElement> answerColumn).style.display = "block" );
     setQuestionPromptAndAnswers(questionsIterableIterator.next().value);
 };
@@ -77,3 +83,15 @@ const setQuestionPromptAndAnswers = (question: Question) =>
     promptParagraph!.textContent = question.promptText;
     answerLists.overwriteAnswerListItems(question.answers);
 };
+
+function convertMsToSeconds(num: string | number): string
+{
+    if (typeof num === "number")
+    {
+        return String(Math.round(num / 1000));
+    }
+    else
+    {
+        return String(Math.round(parseFloat(num) / 1000));
+    }
+}
