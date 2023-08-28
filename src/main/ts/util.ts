@@ -25,6 +25,18 @@ export const shuffleArray = <T>(array: readonly T[]): T[] =>
   return shuffledArray;
 };
 
+export const convertMsToSeconds = (num: string | number): string =>
+{
+    if (typeof num === "number")
+    {
+        return String(Math.round(num / 1000));
+    }
+    else
+    {
+        return String(Math.round(parseFloat(num) / 1000));
+    }
+}
+
 const positiveEmojis: readonly string[] = Object.freeze([
     ":)", ":D", ";)", ";D", "☺", "😀", "😁", "😃", "🙂", "😊", "😌", "🤩", "🥳", "🎉", "🥂", "🍾", "👍", "👌", "🌟", "⭐"
 ]);
