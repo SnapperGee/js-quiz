@@ -5,7 +5,7 @@ import { shuffleArray, timedElementHider, randomEmoji } from "./util.js";
 
 const questionsIterableIterator: IterableIterator<Question> = shuffleArray(questions).values();
 
-const paragraphPrompt = document.querySelector("p");
+const paragraphPrompt = document.getElementById("promptParagraph");
 
 const startButtonColumn = document.getElementById("startButtonColumn");
 
