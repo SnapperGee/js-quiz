@@ -9,7 +9,7 @@ const promptParagraph = document.getElementById("promptParagraph");
 
 const startButtonColumn = document.getElementById("startButtonColumn");
 
-const startButton = <HTMLButtonElement> document.getElementById("startButton");
+const startButton = document.getElementById("startButton");
 
 const answerColumns = Object.freeze(Array.from(document.getElementsByClassName("answerColumn")));
 const showAnswerColumns = (): void => answerColumns.forEach(answerColumn => (<HTMLElement> answerColumn).style.display = "block" );
@@ -25,7 +25,7 @@ const startQuiz = () =>
     setQuestionPromptAndAnswers(questionsIterableIterator.next().value);
 };
 
-startButton.addEventListener("click", startQuiz);
+startButton!.addEventListener("click", startQuiz);
 
 const answerButtonClickEvent = (event: MouseEvent) =>
 {
