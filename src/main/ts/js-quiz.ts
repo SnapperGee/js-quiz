@@ -1,6 +1,6 @@
 import { type AnswerListsController, answerListsController } from "./dom-component/answer-lists-controller.js";
-import {questions } from "./questions.js";
-import { Question } from "./quiz/question.js";
+import { questions } from "./questions.js";
+import { type Question } from "./quiz/question.js";
 import { convertMsToSeconds, randomEmoji, shuffleArray } from "./util.js";
 
 // The quiz questions (question prompt and its answers) to shuffle and iterate through
@@ -103,7 +103,7 @@ const answerButtonClickEvent = (event: MouseEvent) =>
     // If there are no questions left
     else
     {
-        console.log("\n".repeat(4) + "TEST DOES NOT HAVE MORE QUESTIONS" + "\n".repeat(4));
+        console.log("\n".repeat(4) + "QUIZ DOES NOT HAVE MORE QUESTIONS" + "\n".repeat(4));
     }
 };
 
