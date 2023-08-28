@@ -1,11 +1,12 @@
-export const shuffleArray = <T>(array: readonly T[]): T[] =>
+export const shuffleArray = <T>(array: T[]): T[] =>
 {
-    const shuffledArray = Array.from(array);
-
     if (array.length <= 1)
     {
-        return shuffledArray;
+        return array;
     }
+
+    const shuffledArray = Array.from(array);
+
 
     let currentIndex = array.length;
     let randomIndex;
