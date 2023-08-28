@@ -26,7 +26,7 @@ const startQuiz = () =>
 
 startButton!.addEventListener("click", startQuiz);
 
-let timeout: number;
+let correctIncorrectMsgTimeout: number;
 
 const answerButtonClickEvent = (event: MouseEvent) =>
 {
@@ -46,9 +46,9 @@ const answerButtonClickEvent = (event: MouseEvent) =>
         }
 
         correctIncorrectMessageRow.style.display = "block";
-        clearTimeout(timeout);
+        clearTimeout(correctIncorrectMsgTimeout);
 
-        timeout = setTimeout(() =>
+        correctIncorrectMsgTimeout = setTimeout(() =>
         {
             correctIncorrectMessageRow.style.display = "none";
         },
