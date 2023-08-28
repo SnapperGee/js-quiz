@@ -41,11 +41,33 @@ export const jsPrioritiesDuringCreationQuestion: Question = new Question(
     ]
 );
 
+export const jsTypedQuestion: Question = new Question(
+    "JavaScript uses _______ typing.",
+    [
+        answer("dynamic", true),
+        answer("static", false),
+        answer("complex", false),
+        answer("simple", false)
+    ]
+);
+
+export const jsTypingQuestion: Question = new Question(
+    "JavaScript is a ______ typed language.",
+    [
+        answer("weakly", true),
+        answer("strongly", false),
+        answer("statically", false),
+        answer("powerfully", false)
+    ]
+);
+
 export const questions: readonly Question[] = Object.freeze([
     betterThanJSQuestion,
     builtinJSTypesQuestion,
     jsCreationTimeQuestion,
-    jsPrioritiesDuringCreationQuestion
+    jsPrioritiesDuringCreationQuestion,
+    jsTypedQuestion,
+    jsTypingQuestion
 ]);
 
 export default questions;
