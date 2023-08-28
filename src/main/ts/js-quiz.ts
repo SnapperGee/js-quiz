@@ -12,7 +12,6 @@ const startButtonColumn = document.getElementById("startButtonColumn");
 const startButton = document.getElementById("startButton");
 
 const answerColumns = Object.freeze(Array.from(document.getElementsByClassName("answerColumn")));
-const showAnswerColumns = (): void => answerColumns.forEach(answerColumn => (<HTMLElement> answerColumn).style.display = "block" );
 
 const correctIncorrectMessageRow = <HTMLDivElement> document.getElementById("correctIncorrectMessageRow");
 const correctOrIncorrectText = <HTMLSpanElement> document.getElementById("correctOrIncorrectText");
@@ -21,7 +20,7 @@ const correctOrIncorrectEmoji = <HTMLSpanElement> document.getElementById("corre
 const startQuiz = () =>
 {
     startButtonColumn!.style.display = "none";
-    showAnswerColumns();
+    answerColumns.forEach(answerColumn => (<HTMLElement> answerColumn).style.display = "block" );
     setQuestionPromptAndAnswers(questionsIterableIterator.next().value);
 };
 
