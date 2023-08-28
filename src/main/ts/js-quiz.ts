@@ -1,11 +1,9 @@
 import { type AnswerListsController, answerListsController } from "./dom-component/answer-lists-controller.js";
-import {questions as allQuestions} from "./questions.js";
+import {questions } from "./questions.js";
 import { Question } from "./quiz/question.js";
 import { shuffleArray, timedElementHider, randomEmoji } from "./util.js";
 
-const questions: readonly Question[] = shuffleArray(allQuestions);
-
-const questionsIterableIterator: IterableIterator<Question> = questions.values();
+const questionsIterableIterator: IterableIterator<Question> = shuffleArray(questions).values();
 
 const paragraphPrompt = document.querySelector("p");
 
