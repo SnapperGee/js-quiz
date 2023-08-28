@@ -35,7 +35,7 @@ export const convertMsToSeconds = (num: string | number): string =>
     {
         return String(Math.round(parseFloat(num) / 1000));
     }
-}
+};
 
 const positiveEmojis: readonly string[] = Object.freeze([
     ":)", ":D", ";)", ";D", "☺", "😀", "😁", "😃", "🙂", "😊", "😌", "🤩", "🥳", "🎉", "🥂", "🍾", "👍", "👌", "🌟", "⭐"
