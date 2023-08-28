@@ -20,7 +20,13 @@
         </div>
     </noscript>
 
-    <div id="mainContainer" class="h-100 container-fluid text-center">
+    <div class="h-100 container-fluid text-center">
+
+        <div class="row justify-content-end">
+            <div id="countDownTimerContainer">
+
+            </div>
+        </div>
 
         <div class="h-25 row align-items-end" >
             <div id="prompt" class="col">
@@ -29,17 +35,17 @@
         </div>
 
         <div class="h-25 row align-items-center justify-content-center">
-            <section id="startButtonColumn" class="col">
+            <div id="startButtonColumn" class="col">
                 <button id="startButton" class="btn btn-primary shadow btn-lg fs-1 fw-bold button" type="button">Start</button>
-            </section>
+            </div>
 
-            <section id="leftAnswerColumn" class="col-4 answerColumn">
+            <div id="leftAnswerColumn" class="col-4 answerColumn">
                 <ul id="leftAnswerButtonList" class="list-group answerButtonList"></ul>
-            </section>
+            </div>
 
-            <section id="rightAnswerColumn" class="col-4 answerColumn">
+            <div id="rightAnswerColumn" class="col-4 answerColumn">
                 <ul class="list-group answerButtonList" id="rightAnswerButtonList"></ul>
-            </section>
+            </div>
         </div>
 
         <div id="correctIncorrectMessageRow" class="h-25 row align-items-start">
