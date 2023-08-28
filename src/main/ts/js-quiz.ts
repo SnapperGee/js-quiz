@@ -5,7 +5,7 @@ import { shuffleArray, timedElementHider, randomEmoji } from "./util.js";
 
 const questionsIterableIterator: IterableIterator<Question> = shuffleArray(questions).values();
 
-const paragraphPrompt = document.getElementById("promptParagraph");
+const promptParagraph = document.getElementById("promptParagraph");
 
 const startButtonColumn = document.getElementById("startButtonColumn");
 
@@ -67,6 +67,6 @@ const answerLists: AnswerListsController = answerListsController(leftAnswerButto
 
 const setQuestionPromptAndAnswers = (question: Question) =>
 {
-    paragraphPrompt!.textContent = question.promptText;
+    promptParagraph!.textContent = question.promptText;
     answerLists.overwriteAnswerListItems(question.answers);
 };
