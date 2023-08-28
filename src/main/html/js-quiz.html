@@ -20,34 +20,32 @@
         </div>
     </noscript>
 
-    <div class="h-100 d-flex align-items-center justify-content-center">
-        <main class="contianer text-center">
+    <div id="mainContainer" class="h-100 container-fluid text-center">
 
-            <section id="prompt" class="row row-cols-1 text-center">
+        <div id="topRow" class="h-25 row align-items-end" >
+            <div id="prompt" class="col">
                 <p class="text-wrap fs-2">Use the button below to start the quiz on JavaScript fundamentals.</p>
+            </div>
+        </div>
+
+        <div id="middledRow" class="h-25 row align-items-center">
+            <section id="startButtonColumn" class="col">
+                <button id="startButton" class="btn btn-primary shadow btn-lg fs-1 fw-bold button" type="button">Start</button>
             </section>
 
-            <div class="row">
+            <section id="leftAnswerColumn" class="col answerColumn">
+                <ul id="leftAnswerButtonList" class="list-group answerButtonList"></ul>
+            </section>
 
-                <section id="startButtonColumn" class="col">
-                    <button id="startButton" class="btn btn-primary shadow btn-lg fs-1 fw-bold button" type="button">Start</button>
-                </section>
+            <section id="rightAnswerColumn" class="col answerColumn">
+                <ul class="list-group answerButtonList" id="rightAnswerButtonList"></ul>
+            </section>
+        </div>
 
-                <section id="leftAnswerColumn" class="col answerColumn">
-                    <ul id="leftAnswerButtonList" class="list-group answerButtonList"></ul>
-                </section>
+        <div id="correctIncorrectMessageRow" class="h-25 row align-items-start">
+            <p class="fs-1 fw-bold"><span id="correctOrIncorrectText" class="text-muted"></span> <span id="correctOrIncorrectEmoji"></span></p>
+        </div>
 
-                <section id="rightAnswerColumn" class="col answerColumn">
-                    <ul class="list-group answerButtonList" id="rightAnswerButtonList"></ul>
-                </section>
-
-            </div>
-
-            <div id="correctIncorrectMessageRow" class="row row-cols-1">
-                <p class="fs-1 fw-bold"><span id="correctOrIncorrectText" class="text-muted"></span> <span id="correctOrIncorrectEmoji"></span></p>
-            </div>
-
-        </main>
     </div>
 
   <script src="../js/js-quiz.js" type="module"></script>
