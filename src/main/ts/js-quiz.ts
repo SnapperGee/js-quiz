@@ -66,8 +66,6 @@ const setScoreSubmitParagraph = (aString: string): string => scoreSubmitParagrap
 
 const scoreNameInput = <HTMLInputElement> document.getElementById("nameInput");
 
-const setScoreNameInput = (aString: string): string => scoreNameInput!.value = aString;
-
 // The paragraph containing the quiz timer text
 const timerParagraph = document.getElementById("timerParagraph");
 
@@ -87,6 +85,8 @@ const startQuiz = () =>
 
     // Hide entire start button colum
     hideStartButtonColumn();
+
+    hideScoreSubmitParagraphRow();
 
     // Set the question prompt paragraph text and create buttons for each question answer
     setQuestionPromptAndAnswers(questionsIterableIterator.next().value);
@@ -243,6 +243,9 @@ const answerButtonClickEvent = (event: MouseEvent) =>
         else
         {
             setScoreSubmitParagraph("You must get a score that is within the top 5 of the leader boards to save it.");
+            quizTimer = initQuizTime;
+            startButton!.textContent = "Try again?";
+            showStartButtonColumn();
         }
 
         showScoreSubmitParagraphRow();
