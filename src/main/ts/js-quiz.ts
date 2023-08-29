@@ -3,6 +3,8 @@ import { questions } from "./questions.js";
 import { type Question } from "./quiz/question.js";
 import { randomEmoji, shuffleArray } from "./util.js";
 
+type hScore = {name: string, score: number};
+
 const LOCAL_STORAGE_HIGH_SCORES_KEY: string = "highScores";
 
 // The quiz questions (question prompt and its answers) to shuffle and iterate through
@@ -130,8 +132,6 @@ const saveScoreFormSubmitEvent = (event: SubmitEvent) =>
 
     const _name = scoreNameInput.value.trim().replace(/\s{2,}/g, "\u0020");
 
-    type hScore = {name: string, score: number};
-
     const newHighScore: hScore = {name: _name, score: quizTimer};
 
     scoreNameInput.value = "";
@@ -161,6 +161,13 @@ const saveScoreFormSubmitEvent = (event: SubmitEvent) =>
     }
 
     localStorage.setItem(LOCAL_STORAGE_HIGH_SCORES_KEY, JSON.stringify(savedScoresArray));
+
+    hideScoreSubmitParagraphRow();
+    hideScoreSubmitForm();
+
+    quizTimer = initQuizTime;
+    startButton!.textContent = "Try again?";
+    showStartButtonColumn();
 };
 
 scoreSubmitForm?.addEventListener("submit", saveScoreFormSubmitEvent);
@@ -232,9 +239,9 @@ const answerButtonClickEvent = (event: MouseEvent) =>
 
         const highScoresString: string | null = localStorage.getItem(LOCAL_STORAGE_HIGH_SCORES_KEY);
 
-        const highScores: {name: string, score: number}[] | null = highScoresString !== null ? JSON.parse(highScoresString) : null;
+        const highScores: hScore[] | null = highScoresString !== null ? JSON.parse(highScoresString) : null;
 
-        if(highScores === null || highScores.length < 5 || quizTimer > Math.max(...highScores.map(highScore => highScore.score)))
+        if(highScores === null || highScores.length < 5 || quizTimer > Math.min(...highScores.map(highScore => highScore.score)))
         {
 
             setScoreSubmitParagraph("Your score is a top 5 in the leader boards! Would you like to save it?");
