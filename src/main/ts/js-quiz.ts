@@ -27,7 +27,7 @@ const answerColumns = Object.freeze(Array.from(document.getElementsByClassName("
 const hideAnswerColumns = (): void => answerColumns.forEach(answerColumn => (<HTMLElement> answerColumn).style.display = "none");
 
 // Row containing paragraph to display status of whether answer is correct or incorrect
-const correctIncorrectMessageRow = document.getElementById("correctIncorrectMessageRow");
+const bottomRow = document.getElementById("bottomRow");
 
 // The alpha text portion of paragraph to display status of whether answer is correct or incorrect
 const correctOrIncorrectText = document.getElementById("correctOrIncorrectText");
@@ -123,11 +123,11 @@ const answerButtonClickEvent = (event: MouseEvent) =>
         }
 
         // Display correct/incorrect answer message for 1.5 seconds
-        correctIncorrectMessageRow!.style.display = "block";
+        bottomRow!.style.display = "block";
         clearTimeout(correctIncorrectMsgTimeout);
         correctIncorrectMsgTimeout = setTimeout(() =>
         {
-            correctIncorrectMessageRow!.style.display = "none";
+            bottomRow!.style.display = "none";
         },
         1500);
     }
