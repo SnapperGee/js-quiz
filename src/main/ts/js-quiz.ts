@@ -3,6 +3,8 @@ import { questions } from "./questions.js";
 import { type Question } from "./quiz/question.js";
 import { randomEmoji, shuffleArray } from "./util.js";
 
+const LOCAL_STORAGE_HIGH_SCORES_KEY: string = "highScores";
+
 // The quiz questions (question prompt and its answers) to shuffle and iterate through
 let questionsIterableIterator: IterableIterator<Question>;
 
@@ -62,6 +64,10 @@ const scoreSubmitParagraph = document.getElementById("scoreSubmitParagraph");
 
 const setScoreSubmitParagraph = (aString: string): string => scoreSubmitParagraph!.textContent = aString;
 
+const scoreNameInput = <HTMLInputElement> document.getElementById("nameInput");
+
+const setScoreNameInput = (aString: string): string => scoreNameInput!.value = aString;
+
 // The paragraph containing the quiz timer text
 const timerParagraph = document.getElementById("timerParagraph");
 
@@ -117,6 +123,47 @@ const startQuiz = () =>
 };
 
 startButton!.addEventListener("click", startQuiz);
+
+const saveScoreFormSubmitEvent = (event: SubmitEvent) =>
+{
+    event.preventDefault();
+
+    const _name = scoreNameInput.value.trim().replace(/\s{2,}/g, "\u0020");
+
+    type hScore = {name: string, score: number};
+
+    const newHighScore: hScore = {name: _name, score: quizTimer};
+
+    scoreNameInput.value = "";
+
+    const savedScoresString: string | null = localStorage.getItem(LOCAL_STORAGE_HIGH_SCORES_KEY);
+
+    let savedScoresArray: hScore[];
+
+    if (savedScoresString !== null)
+    {
+        savedScoresArray = JSON.parse(savedScoresString).sort((aHighScore: hScore, anotherHighScore: hScore) => anotherHighScore.score - aHighScore.score);
+
+        if (savedScoresArray.length >= 5)
+        {
+            savedScoresArray.splice(savedScoresArray.length - 1, 1, newHighScore);
+        }
+        else
+        {
+            savedScoresArray.push(newHighScore);
+        }
+
+        savedScoresArray.sort((aHighScore: hScore, anotherHighScore: hScore) => anotherHighScore.score - aHighScore.score);
+    }
+    else
+    {
+        savedScoresArray = [newHighScore];
+    }
+
+    localStorage.setItem(LOCAL_STORAGE_HIGH_SCORES_KEY, JSON.stringify(savedScoresArray));
+};
+
+scoreSubmitForm?.addEventListener("submit", saveScoreFormSubmitEvent);
 
 // Timer used to hide row that displays correct or incorrect status of answered question
 let correctIncorrectMsgTimeout: number;
@@ -183,11 +230,11 @@ const answerButtonClickEvent = (event: MouseEvent) =>
 
         promptParagraph?.append(scoreParagraph);
 
-        const highScoresString: string | null = localStorage.getItem("highScores");
+        const highScoresString: string | null = localStorage.getItem(LOCAL_STORAGE_HIGH_SCORES_KEY);
 
         const highScores: {name: string, score: number}[] | null = highScoresString !== null ? JSON.parse(highScoresString) : null;
 
-        if(highScores === null || highScores.length < 5 || quizTimer < Math.max(...highScores.map(highScore => highScore.score)))
+        if(highScores === null || highScores.length < 5 || quizTimer > Math.max(...highScores.map(highScore => highScore.score)))
         {
 
             setScoreSubmitParagraph("Your score is a top 5 in the leader boards! Would you like to save it?");
@@ -195,12 +242,10 @@ const answerButtonClickEvent = (event: MouseEvent) =>
         }
         else
         {
-            setScoreSubmitParagraph("You must get a score that is within the top of the leader boards to save it.");
+            setScoreSubmitParagraph("You must get a score that is within the top 5 of the leader boards to save it.");
         }
 
         showScoreSubmitParagraphRow();
-
-
     }
 };
 
