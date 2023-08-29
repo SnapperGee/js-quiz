@@ -2,6 +2,12 @@
 
 Web app that presents a timed quiz on JavaScript fundamentals to the user.
 
+## Synopsis
+
+This web app presents a timed quiz to the user. For each incorrect question, time is deducted from the timer. If the
+user is able to reach the end of the quiz without running out of time, the remaining time is used as their score. If the
+user's score is within the top 5 scores saved in their local storage, they have the option to save it.
+
 ## Structure
 
 The `src/main` directory is the root that contains all the source code used by
@@ -78,6 +84,20 @@ the lists of answers and the function used to create an HTML answer button.
 ### scss root directory
 
 The [`./src/main/scss`][scss directory] directory contains the single scss file compiled to this web app's css. It contains the source code used to hide elements by default and apply some minor custom styling.
+
+## Screen shot preview
+
+1. The user is initially prompted to start the quiz:
+
+   ![init img](./docs/img/init.png)
+
+1. Once the quiz is started, the user is asked a series of questions:
+
+   ![question img](./docs/img/asked_question.png)
+
+1. Upon successfully completing the quiz, the user is given the option to save their score if it's within the top 5:
+
+   ![save score img](./docs/img/save_score.png)
 
 ## TODO
 
