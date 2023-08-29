@@ -9,6 +9,8 @@ const questionsIterableIterator: IterableIterator<Question> = shuffleArray(quest
 // Paragraph DOM element to display quiz question to
 const promptParagraph = document.getElementById("promptParagraph");
 
+const setPromptParagraph = (aString: string): string => promptParagraph!.textContent = aString;
+
 // Column that contains start button. Gets hidden when quiz starts
 const startButtonColumn = document.getElementById("startButtonColumn");
 
@@ -69,7 +71,7 @@ const startQuiz = () =>
         if (quizTimer <= 0)
         {
             clearInterval(quizTimerInterval);
-            promptParagraph!.textContent = "You have run out of time!";
+            setPromptParagraph(`You have run out of time... ${randomEmoji.negative()}`);
             // Hide answer button columns to replace hidden start button column
             hideAnswerColumns();
             quizTimer = initQuizTime;
@@ -147,6 +149,6 @@ const answerLists: AnswerListsController = answerListsController( leftAnswerButt
 // Uses a question object to set the question prompt paragraph text and to generate answer buttons
 const setQuestionPromptAndAnswers = (question: Question) =>
 {
-    promptParagraph!.textContent = question.promptText;
+    setPromptParagraph(question.promptText);
     answerLists.overwriteAnswerListItems(question.answers);
 };
