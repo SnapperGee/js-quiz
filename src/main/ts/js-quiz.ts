@@ -36,7 +36,11 @@ const correctOrIncorrectText = document.getElementById("correctOrIncorrectText")
 const correctOrIncorrectEmoji = document.getElementById("correctOrIncorrectEmoji");
 
 // The div containing the paragraph containing the quiz timer text
-const timerContainer = document.getElementById("timerContainer");
+const quizTimerContainer = document.getElementById("timerContainer");
+
+const showQuizTimerContainer = (): string => quizTimerContainer!.style.display = "block";
+
+const hideQuizTimerContainer = (): string => quizTimerContainer!.style.display = "none";
 
 // The paragraph containing the quiz timer text
 const timerParagraph = document.getElementById("timerParagraph");
@@ -63,7 +67,7 @@ const startQuiz = () =>
     answerColumns.forEach(answerColumn => (<HTMLElement> answerColumn).style.display = "block" );
 
     // Display quiz timer
-    timerContainer!.style.display = "block";
+    showQuizTimerContainer();
 
     // Set the timer text to the init quiz time
     setTimerParagraphText(quizTimer);
@@ -80,6 +84,7 @@ const startQuiz = () =>
             setPromptParagraphText(`You have run out of time... ${randomEmoji.negative()}`);
             // Hide answer button columns to replace hidden start button column
             hideAnswerColumns();
+            hideQuizTimerContainer();
             quizTimer = initQuizTime;
             startButton!.textContent = "Try again?";
             showStartButtonColumn();
@@ -108,9 +113,11 @@ const answerButtonClickEvent = (event: MouseEvent) =>
             correctOrIncorrectText!.textContent = "Correct!";
             correctOrIncorrectEmoji!.textContent = randomEmoji.positive();
         }
-        // Clicked answer button is incorrect set incorrect answer message
+        // Clicked answer button is incorrect set incorrect answer message and deduct from timer
         else
         {
+            quizTimer = quizTimer <= 2 ? 0 : quizTimer - 4;
+            setTimerParagraphText(quizTimer);
             correctOrIncorrectText!.textContent = "Incorrect...";
             correctOrIncorrectEmoji!.textContent = randomEmoji.negative();
         }
@@ -138,7 +145,15 @@ const answerButtonClickEvent = (event: MouseEvent) =>
     {
         clearInterval(quizTimerInterval);
         hideAnswerColumns();
-        setPromptParagraphText(`Good job, you completed the quiz! ${randomEmoji.positive()}`);
+        hideQuizTimerContainer();
+        setPromptParagraphText(`Good job, you completed the quiz! ${randomEmoji.positive()}\nWith a score of...`);
+
+        const scoreParagraph = document.createElement("p");
+        scoreParagraph.classList.add("fw-bold");
+        scoreParagraph.style.fontSize = "10rem";
+        scoreParagraph.textContent = String(quizTimer);
+
+        promptParagraph?.append(scoreParagraph);
     }
 };
 
