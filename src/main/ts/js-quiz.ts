@@ -46,6 +46,20 @@ const showQuizTimerContainer = (): string => quizTimerContainer!.style.display =
 
 const hideQuizTimerContainer = (): string => quizTimerContainer!.style.display = "none";
 
+const scoreSubmitForm = document.getElementById("scoreSubmitForm");
+
+const showScoreSubmitForm = (): string => scoreSubmitForm!.style.display = "block";
+
+const hideScoreSubmitForm = (): string => scoreSubmitForm!.style.display = "none";
+
+const scoreSubmitParagraph = document.getElementById("scoreSubmitParagraph");
+
+const setScoreSubmitParagraph = (aString: string): string => scoreSubmitParagraph!.textContent = aString;
+
+const showScoreSubmitParagraph = (): string => scoreSubmitParagraph!.style.display = "inline";
+
+const hideScoreSubmitParagraph = (): string => scoreSubmitParagraph!.style.display = "none";
+
 // The paragraph containing the quiz timer text
 const timerParagraph = document.getElementById("timerParagraph");
 
@@ -160,6 +174,25 @@ const answerButtonClickEvent = (event: MouseEvent) =>
         scoreParagraph.textContent = String(quizTimer);
 
         promptParagraph?.append(scoreParagraph);
+
+        const highScoresString: string | null = localStorage.getItem("highScores");
+
+        const highScores: {name: string, score: number}[] | null = highScoresString !== null ? JSON.parse(highScoresString) : null;
+
+        if(highScores === null || highScores.length < 5 || quizTimer < Math.max(...highScores.map(highScore => highScore.score)))
+        {
+
+            setScoreSubmitParagraph("Your score is a top 5 in the leader boards. Would like to save it?");
+            showScoreSubmitParagraph();
+            showScoreSubmitForm();
+        }
+        else
+        {
+            setScoreSubmitParagraph("You must get a score that is within the top of the leader boards to save it.");
+            showScoreSubmitParagraph();
+        }
+
+
     }
 };
 
