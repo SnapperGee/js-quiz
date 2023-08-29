@@ -52,13 +52,15 @@ const showScoreSubmitForm = (): string => scoreSubmitForm!.style.display = "flex
 
 const hideScoreSubmitForm = (): string => scoreSubmitForm!.style.display = "none";
 
+const scoreSubmitParagraphRow = document.getElementById("scoreSubmitParagraphRow");
+
+const showScoreSubmitParagraphRow = (): string => scoreSubmitParagraphRow!.style.display = "block";
+
+const hideScoreSubmitParagraphRow = (): string => scoreSubmitParagraphRow!.style.display = "none";
+
 const scoreSubmitParagraph = document.getElementById("scoreSubmitParagraph");
 
 const setScoreSubmitParagraph = (aString: string): string => scoreSubmitParagraph!.textContent = aString;
-
-const showScoreSubmitParagraph = (): string => scoreSubmitParagraph!.style.display = "inline";
-
-const hideScoreSubmitParagraph = (): string => scoreSubmitParagraph!.style.display = "none";
 
 // The paragraph containing the quiz timer text
 const timerParagraph = document.getElementById("timerParagraph");
@@ -182,15 +184,15 @@ const answerButtonClickEvent = (event: MouseEvent) =>
         if(highScores === null || highScores.length < 5 || quizTimer < Math.max(...highScores.map(highScore => highScore.score)))
         {
 
-            setScoreSubmitParagraph("Your score is a top 5 in the leader boards. Would like to save it?");
-            showScoreSubmitParagraph();
+            setScoreSubmitParagraph("Your score is a top 5 in the leader boards! Would like to save it?");
             showScoreSubmitForm();
         }
         else
         {
             setScoreSubmitParagraph("You must get a score that is within the top of the leader boards to save it.");
-            showScoreSubmitParagraph();
         }
+
+        showScoreSubmitParagraphRow();
 
 
     }

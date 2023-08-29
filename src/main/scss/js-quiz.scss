@@ -16,13 +16,13 @@ ul {
     list-style-type: none;
 }
 
-#scoreSubmitForm {
+.answerColumn, #scoreSubmitForm, #scoreSubmitParagraphRow, #timerContainer {
     display: none;
 }
 
-.answerColumn {
-    display: none;
-}
+#scoreSubmitParagraphRow {
+    margin-top: 20px;
+  }
 
 .button {
     border-radius: 20px;
@@ -32,8 +32,4 @@ ul {
 // Prevent answer buttons from stacking directly on each other
 .answerButtonList li:not(:first-child) {
     margin-top: 40px;
-}
-
-#timerContainer {
-    display: none;
 }
