@@ -121,6 +121,12 @@ startButton!.addEventListener("click", startQuiz);
 // Timer used to hide row that displays correct or incorrect status of answered question
 let correctIncorrectMsgTimeout: number;
 
+// List of answer buttons from left column
+const leftAnswerButtonList = document.getElementById("leftAnswerButtonList");
+
+// List of answer buttons from right column
+const rightAnswerButtonList = document.getElementById("rightAnswerButtonList");
+
 // Function to bind as click event to each answer button
 const answerButtonClickEvent = (event: MouseEvent) =>
 {
@@ -184,7 +190,7 @@ const answerButtonClickEvent = (event: MouseEvent) =>
         if(highScores === null || highScores.length < 5 || quizTimer < Math.max(...highScores.map(highScore => highScore.score)))
         {
 
-            setScoreSubmitParagraph("Your score is a top 5 in the leader boards! Would like to save it?");
+            setScoreSubmitParagraph("Your score is a top 5 in the leader boards! Would you like to save it?");
             showScoreSubmitForm();
         }
         else
@@ -197,12 +203,6 @@ const answerButtonClickEvent = (event: MouseEvent) =>
 
     }
 };
-
-// List of answer buttons from left column
-const leftAnswerButtonList = document.getElementById("leftAnswerButtonList");
-
-// List of answer buttons from right column
-const rightAnswerButtonList = document.getElementById("rightAnswerButtonList");
 
 // Create object to overwrite answer buttons in answer button lists
 const answerLists: AnswerListsController = answerListsController( leftAnswerButtonList,
