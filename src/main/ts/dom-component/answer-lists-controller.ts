@@ -27,6 +27,7 @@ export class AnswerListsController
 
     public get leftList(): HTMLUListElement { return this.#leftList; }
     public get rightList(): HTMLUListElement { return this.#rightList; }
+    public get buttonClickEvent(): HTMLButtonElementClickEvent | undefined { return this.#buttonClickEvent; }
 
     public overwriteAnswerListItems(answers: readonly Answer[]): void
     {
