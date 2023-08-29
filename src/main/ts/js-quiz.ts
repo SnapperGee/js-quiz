@@ -1,7 +1,7 @@
 import { type AnswerListsController, answerListsController } from "./dom-component/answer-lists-controller.js";
 import { questions } from "./questions.js";
 import { type Question } from "./quiz/question.js";
-import { convertMsToSeconds, randomEmoji, shuffleArray } from "./util.js";
+import { randomEmoji, shuffleArray } from "./util.js";
 
 // The quiz questions (question prompt and its answers) to shuffle and iterate through
 const questionsIterableIterator: IterableIterator<Question> = shuffleArray(questions).values();
@@ -34,10 +34,12 @@ const timerContainer = document.getElementById("timerContainer");
 const timerParagraph = document.getElementById("timerParagraph");
 
 // Variable to hold the numeric value of the quiz timer. Gives 5 seconds per question
-let totalQuizTime = 1000 * 5 * questions.length;
+let quizTimer = Math.round(1000 * 5 * questions.length / 1000);
+
+let quizTimerInterval: number;
 
 // Set the timer text to the init quiz time
-timerParagraph!.textContent = convertMsToSeconds(totalQuizTime);
+timerParagraph!.textContent = String(quizTimer);
 
 // Function to call when start quiz button is clicked
 const startQuiz = () =>
@@ -53,6 +55,19 @@ const startQuiz = () =>
 
     // Display quiz timer
     timerContainer!.style.display = "block";
+
+    quizTimerInterval = setInterval(() =>
+    {
+        quizTimer--;
+
+        timerParagraph!.textContent = String(quizTimer);
+
+        if (quizTimer <= 0)
+        {
+            clearInterval(quizTimerInterval);
+        }
+    },
+    1000);
 
 };
 
@@ -103,7 +118,7 @@ const answerButtonClickEvent = (event: MouseEvent) =>
     // If there are no questions left
     else
     {
-        console.log("\n".repeat(4) + "QUIZ DOES NOT HAVE MORE QUESTIONS" + "\n".repeat(4));
+        clearInterval(quizTimerInterval);
     }
 };
 
