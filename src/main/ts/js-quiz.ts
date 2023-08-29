@@ -28,6 +28,8 @@ const answerColumns = Object.freeze(Array.from(document.getElementsByClassName("
 
 const hideAnswerColumns = (): void => answerColumns.forEach(answerColumn => (<HTMLElement> answerColumn).style.display = "none");
 
+const showAnswerColumns = (): void => answerColumns.forEach(answerColumn => (<HTMLElement> answerColumn).style.display = "block" );
+
 // Row containing paragraph to display status of whether answer is correct or incorrect
 const bottomRow = document.getElementById("bottomRow");
 
@@ -68,7 +70,7 @@ const startQuiz = () =>
     setQuestionPromptAndAnswers(questionsIterableIterator.next().value);
 
     // Display answer button columns to replace hidden start button column
-    answerColumns.forEach(answerColumn => (<HTMLElement> answerColumn).style.display = "block" );
+    showAnswerColumns();
 
     // Display quiz timer
     showQuizTimerContainer();
