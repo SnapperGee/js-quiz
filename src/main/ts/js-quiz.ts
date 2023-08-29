@@ -18,6 +18,8 @@ const startButton = document.getElementById("startButton");
 // The left and right columns of buttons corresponding to the quiz question answers
 const answerColumns = Object.freeze(Array.from(document.getElementsByClassName("answerColumn")));
 
+const hideAnswerColumns = (): void => answerColumns.forEach(answerColumn => (<HTMLElement> answerColumn).style.display = "none");
+
 // Row containing paragraph to display status of whether answer is correct or incorrect
 const correctIncorrectMessageRow = document.getElementById("correctIncorrectMessageRow");
 
@@ -33,13 +35,12 @@ const timerContainer = document.getElementById("timerContainer");
 // The paragraph containing the quiz timer text
 const timerParagraph = document.getElementById("timerParagraph");
 
+const initQuizTime = Math.round(1000 * 1 * questions.length / 1000);
+
 // Variable to hold the numeric value of the quiz timer. Gives 5 seconds per question
-let quizTimer = Math.round(1000 * 5 * questions.length / 1000);
+let quizTimer = initQuizTime;
 
 let quizTimerInterval: number;
-
-// Set the timer text to the init quiz time
-timerParagraph!.textContent = String(quizTimer);
 
 // Function to call when start quiz button is clicked
 const startQuiz = () =>
@@ -56,6 +57,9 @@ const startQuiz = () =>
     // Display quiz timer
     timerContainer!.style.display = "block";
 
+    // Set the timer text to the init quiz time
+    timerParagraph!.textContent = String(quizTimer);
+
     quizTimerInterval = setInterval(() =>
     {
         quizTimer--;
@@ -65,6 +69,12 @@ const startQuiz = () =>
         if (quizTimer <= 0)
         {
             clearInterval(quizTimerInterval);
+            promptParagraph!.textContent = "You have run out of time!";
+            // Hide answer button columns to replace hidden start button column
+            hideAnswerColumns();
+            quizTimer = initQuizTime;
+            startButton!.textContent = "Try again?";
+            startButtonColumn!.style.display = "block";
         }
     },
     1000);
@@ -119,6 +129,7 @@ const answerButtonClickEvent = (event: MouseEvent) =>
     else
     {
         clearInterval(quizTimerInterval);
+        hideAnswerColumns();
     }
 };
 
