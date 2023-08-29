@@ -48,7 +48,7 @@ const hideQuizTimerContainer = (): string => quizTimerContainer!.style.display =
 
 const scoreSubmitForm = document.getElementById("scoreSubmitForm");
 
-const showScoreSubmitForm = (): string => scoreSubmitForm!.style.display = "block";
+const showScoreSubmitForm = (): string => scoreSubmitForm!.style.display = "flex";
 
 const hideScoreSubmitForm = (): string => scoreSubmitForm!.style.display = "none";
 
