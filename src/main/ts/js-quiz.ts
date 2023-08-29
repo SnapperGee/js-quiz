@@ -9,10 +9,14 @@ const questionsIterableIterator: IterableIterator<Question> = shuffleArray(quest
 // Paragraph DOM element to display quiz question to
 const promptParagraph = document.getElementById("promptParagraph");
 
-const setPromptParagraph = (aString: string): string => promptParagraph!.textContent = aString;
+const setPromptParagraphText = (aString: string): string => promptParagraph!.textContent = aString;
 
 // Column that contains start button. Gets hidden when quiz starts
 const startButtonColumn = document.getElementById("startButtonColumn");
+
+const hideStartButtonColumn = (): string => startButtonColumn!.style.display = "none";
+
+const showStartButtonColumn = (): string => startButtonColumn!.style.display = "block";
 
 // Start button that starts quiz timer and displays first question
 const startButton = document.getElementById("startButton");
@@ -37,7 +41,9 @@ const timerContainer = document.getElementById("timerContainer");
 // The paragraph containing the quiz timer text
 const timerParagraph = document.getElementById("timerParagraph");
 
-const initQuizTime = Math.round(1000 * 1 * questions.length / 1000);
+const setTimerParagraphText = (value: string | number): string => timerParagraph!.textContent = typeof value === "string" ? value : String(value);
+
+const initQuizTime = Math.round(5 * 1000 * questions.length / 1000);
 
 // Variable to hold the numeric value of the quiz timer. Gives 5 seconds per question
 let quizTimer = initQuizTime;
@@ -48,7 +54,7 @@ let quizTimerInterval: number;
 const startQuiz = () =>
 {
     // Hide entire start button colum
-    startButtonColumn!.style.display = "none";
+    hideStartButtonColumn();
 
     // Set the question prompt paragraph text and create buttons for each question answer
     setQuestionPromptAndAnswers(questionsIterableIterator.next().value);
@@ -60,23 +66,23 @@ const startQuiz = () =>
     timerContainer!.style.display = "block";
 
     // Set the timer text to the init quiz time
-    timerParagraph!.textContent = String(quizTimer);
+    setTimerParagraphText(quizTimer);
 
     quizTimerInterval = setInterval(() =>
     {
         quizTimer--;
 
-        timerParagraph!.textContent = String(quizTimer);
+        setTimerParagraphText(quizTimer);
 
         if (quizTimer <= 0)
         {
             clearInterval(quizTimerInterval);
-            setPromptParagraph(`You have run out of time... ${randomEmoji.negative()}`);
+            setPromptParagraphText(`You have run out of time... ${randomEmoji.negative()}`);
             // Hide answer button columns to replace hidden start button column
             hideAnswerColumns();
             quizTimer = initQuizTime;
             startButton!.textContent = "Try again?";
-            startButtonColumn!.style.display = "block";
+            showStartButtonColumn();
         }
     },
     1000);
@@ -132,6 +138,7 @@ const answerButtonClickEvent = (event: MouseEvent) =>
     {
         clearInterval(quizTimerInterval);
         hideAnswerColumns();
+        setPromptParagraphText(`Good job, you completed the quiz! ${randomEmoji.positive()}`);
     }
 };
 
@@ -149,6 +156,6 @@ const answerLists: AnswerListsController = answerListsController( leftAnswerButt
 // Uses a question object to set the question prompt paragraph text and to generate answer buttons
 const setQuestionPromptAndAnswers = (question: Question) =>
 {
-    setPromptParagraph(question.promptText);
+    setPromptParagraphText(question.promptText);
     answerLists.overwriteAnswerListItems(question.answers);
 };
