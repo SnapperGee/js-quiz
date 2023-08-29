@@ -6,7 +6,7 @@ import { randomEmoji, shuffleArray } from "./util.js";
 // The quiz questions (question prompt and its answers) to shuffle and iterate through
 let questionsIterableIterator: IterableIterator<Question>;
 
-const resetQuestions = (): IterableIterator<Question> => questionsIterableIterator = shuffleArray(questions).values();
+const resetQuestionsIterator = (): IterableIterator<Question> => questionsIterableIterator = shuffleArray(questions).values();
 
 // Paragraph DOM element to display quiz question to
 const promptParagraph = document.getElementById("promptParagraph");
@@ -59,7 +59,7 @@ let quizTimerInterval: number;
 // Function to call when start quiz button is clicked
 const startQuiz = () =>
 {
-    resetQuestions();
+    resetQuestionsIterator();
 
     // Hide entire start button colum
     hideStartButtonColumn();
