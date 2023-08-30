@@ -18,14 +18,14 @@ const promptParagraph = document.getElementById("promptParagraph");
 const setPromptParagraphText = (aString: string): string => promptParagraph!.textContent = aString;
 
 // Column that contains start button. Gets hidden when quiz starts
-const initButtonColumn = document.getElementById("startButtonColumn");
+const initButtonColumn = document.getElementById("initButtonColumn");
 
 const hideStartButtonColumn = (): string => initButtonColumn!.style.display = "none";
 
 const showStartButtonColumn = (): string => initButtonColumn!.style.display = "block";
 
 // Start button that starts quiz timer and displays first question
-const initButton = document.getElementById("startButton");
+const initButton = document.getElementById("initButton");
 
 // The left and right columns of buttons corresponding to the quiz question answers
 const answerColumns = Object.freeze(Array.from(document.getElementsByClassName("answerColumn")));
