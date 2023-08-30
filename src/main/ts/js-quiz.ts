@@ -83,12 +83,16 @@ let quizTimerInterval: number;
 // Function to call when start quiz button is clicked
 const startQuiz = () =>
 {
+    quizTimer = initQuizTime;
+
     resetQuestionsIterator();
 
     // Hide entire start button colum
     hideStartButtonColumn();
 
     hideScoreSubmitParagraphRow();
+
+    hideScoreSubmitForm();
 
     // Set the question prompt paragraph text and create buttons for each question answer
     setQuestionPromptAndAnswers(questionsIterableIterator.next().value);
@@ -165,7 +169,6 @@ const saveScoreFormSubmitEvent = (event: SubmitEvent) =>
     hideScoreSubmitParagraphRow();
     hideScoreSubmitForm();
 
-    quizTimer = initQuizTime;
     startButton!.textContent = "Try again?";
     showStartButtonColumn();
 };
@@ -250,12 +253,12 @@ const answerButtonClickEvent = (event: MouseEvent) =>
         else
         {
             setScoreSubmitParagraph("You must get a score that is within the top 5 of the leader boards to save it.");
-            quizTimer = initQuizTime;
-            startButton!.textContent = "Try again?";
-            showStartButtonColumn();
         }
 
         showScoreSubmitParagraphRow();
+
+        startButton!.textContent = "Try again?";
+        showStartButtonColumn();
     }
 };
 
