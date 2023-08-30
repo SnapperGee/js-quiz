@@ -9,11 +9,11 @@ const resetQuestionsIterator = () => questionsIterableIterator = shuffleArray(qu
 const promptParagraph = document.getElementById("promptParagraph");
 const setPromptParagraphText = (aString) => promptParagraph.textContent = aString;
 // Column that contains start button. Gets hidden when quiz starts
-const startButtonColumn = document.getElementById("startButtonColumn");
-const hideStartButtonColumn = () => startButtonColumn.style.display = "none";
-const showStartButtonColumn = () => startButtonColumn.style.display = "block";
+const initButtonColumn = document.getElementById("initButtonColumn");
+const hideStartButtonColumn = () => initButtonColumn.style.display = "none";
+const showStartButtonColumn = () => initButtonColumn.style.display = "block";
 // Start button that starts quiz timer and displays first question
-const startButton = document.getElementById("startButton");
+const initButton = document.getElementById("initButton");
 // The left and right columns of buttons corresponding to the quiz question answers
 const answerColumns = Object.freeze(Array.from(document.getElementsByClassName("answerColumn")));
 const hideAnswerColumns = () => answerColumns.forEach(answerColumn => answerColumn.style.display = "none");
@@ -45,7 +45,7 @@ const initQuizTime = Math.round(5 * 1000 * questions.length / 1000);
 let quizTimer = initQuizTime;
 let quizTimerInterval;
 // Function to call when start quiz button is clicked
-const startQuiz = () => {
+const initQuiz = () => {
     quizTimer = initQuizTime;
     resetQuestionsIterator();
     // Hide entire start button colum
@@ -62,20 +62,26 @@ const startQuiz = () => {
     setTimerParagraphText(quizTimer);
     quizTimerInterval = setInterval(() => {
         quizTimer--;
+        // Update remaining time shown in upper corner
         setTimerParagraphText(quizTimer);
+        // If quiz time runs out
         if (quizTimer <= 0) {
+            // Stop timer
             clearInterval(quizTimerInterval);
+            // Display sad message that time has run out
             setPromptParagraphText(`You have run out of time... ${randomEmoji.negative()}`);
             // Hide answer button columns to replace hidden start button column
             hideAnswerColumns();
+            // Remove columns consisting of answer buttons
             hideQuizTimerContainer();
-            quizTimer = initQuizTime;
-            startButton.textContent = "Try again?";
+            // Update init quiz button text
+            initButton.textContent = "Try again?";
+            // show init button to user
             showStartButtonColumn();
         }
     }, 1000);
 };
-startButton.addEventListener("click", startQuiz);
+initButton.addEventListener("click", initQuiz);
 const saveScoreFormSubmitEvent = (event) => {
     event.preventDefault();
     const _name = scoreNameInput.value.trim().replace(/\s{2,}/g, "\u0020");
@@ -99,7 +105,7 @@ const saveScoreFormSubmitEvent = (event) => {
     localStorage.setItem(LOCAL_STORAGE_HIGH_SCORES_KEY, JSON.stringify(savedScoresArray));
     hideScoreSubmitParagraphRow();
     hideScoreSubmitForm();
-    startButton.textContent = "Try again?";
+    initButton.textContent = "Try again?";
     showStartButtonColumn();
 };
 scoreSubmitForm?.addEventListener("submit", saveScoreFormSubmitEvent);
@@ -160,7 +166,7 @@ const answerButtonClickEvent = (event) => {
             setScoreSubmitParagraph("You must get a score that is within the top 5 of the leader boards to save it.");
         }
         showScoreSubmitParagraphRow();
-        startButton.textContent = "Try again?";
+        initButton.textContent = "Try again?";
         showStartButtonColumn();
     }
 };
