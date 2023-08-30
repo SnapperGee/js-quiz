@@ -46,10 +46,12 @@ let quizTimer = initQuizTime;
 let quizTimerInterval;
 // Function to call when start quiz button is clicked
 const startQuiz = () => {
+    quizTimer = initQuizTime;
     resetQuestionsIterator();
     // Hide entire start button colum
     hideStartButtonColumn();
     hideScoreSubmitParagraphRow();
+    hideScoreSubmitForm();
     // Set the question prompt paragraph text and create buttons for each question answer
     setQuestionPromptAndAnswers(questionsIterableIterator.next().value);
     // Display answer button columns to replace hidden start button column
@@ -97,7 +99,6 @@ const saveScoreFormSubmitEvent = (event) => {
     localStorage.setItem(LOCAL_STORAGE_HIGH_SCORES_KEY, JSON.stringify(savedScoresArray));
     hideScoreSubmitParagraphRow();
     hideScoreSubmitForm();
-    quizTimer = initQuizTime;
     startButton.textContent = "Try again?";
     showStartButtonColumn();
 };
@@ -157,11 +158,10 @@ const answerButtonClickEvent = (event) => {
         }
         else {
             setScoreSubmitParagraph("You must get a score that is within the top 5 of the leader boards to save it.");
-            quizTimer = initQuizTime;
-            startButton.textContent = "Try again?";
-            showStartButtonColumn();
         }
         showScoreSubmitParagraphRow();
+        startButton.textContent = "Try again?";
+        showStartButtonColumn();
     }
 };
 // Create object to overwrite answer buttons in answer button lists
