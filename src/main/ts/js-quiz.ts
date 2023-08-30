@@ -18,14 +18,14 @@ const promptParagraph = document.getElementById("promptParagraph");
 const setPromptParagraphText = (aString: string): string => promptParagraph!.textContent = aString;
 
 // Column that contains start button. Gets hidden when quiz starts
-const startButtonColumn = document.getElementById("startButtonColumn");
+const initButtonColumn = document.getElementById("startButtonColumn");
 
-const hideStartButtonColumn = (): string => startButtonColumn!.style.display = "none";
+const hideStartButtonColumn = (): string => initButtonColumn!.style.display = "none";
 
-const showStartButtonColumn = (): string => startButtonColumn!.style.display = "block";
+const showStartButtonColumn = (): string => initButtonColumn!.style.display = "block";
 
 // Start button that starts quiz timer and displays first question
-const startButton = document.getElementById("startButton");
+const initButton = document.getElementById("startButton");
 
 // The left and right columns of buttons corresponding to the quiz question answers
 const answerColumns = Object.freeze(Array.from(document.getElementsByClassName("answerColumn")));
@@ -81,7 +81,7 @@ let quizTimer = initQuizTime;
 let quizTimerInterval: number;
 
 // Function to call when start quiz button is clicked
-const startQuiz = () =>
+const initQuiz = () =>
 {
     quizTimer = initQuizTime;
 
@@ -110,17 +110,28 @@ const startQuiz = () =>
     {
         quizTimer--;
 
+        // Update remaining time shown in upper corner
         setTimerParagraphText(quizTimer);
 
+        // If quiz time runs out
         if (quizTimer <= 0)
         {
+            // Stop timer
             clearInterval(quizTimerInterval);
+
+            // Display sad message that time has run out
             setPromptParagraphText(`You have run out of time... ${randomEmoji.negative()}`);
+
             // Hide answer button columns to replace hidden start button column
             hideAnswerColumns();
+
+            // Remove columns consisting of answer buttons
             hideQuizTimerContainer();
-            quizTimer = initQuizTime;
-            startButton!.textContent = "Try again?";
+
+            // Update init quiz button text
+            initButton!.textContent = "Try again?";
+
+            // show init button to user
             showStartButtonColumn();
         }
     },
@@ -128,7 +139,7 @@ const startQuiz = () =>
 
 };
 
-startButton!.addEventListener("click", startQuiz);
+initButton!.addEventListener("click", initQuiz);
 
 const saveScoreFormSubmitEvent = (event: SubmitEvent) =>
 {
@@ -169,7 +180,7 @@ const saveScoreFormSubmitEvent = (event: SubmitEvent) =>
     hideScoreSubmitParagraphRow();
     hideScoreSubmitForm();
 
-    startButton!.textContent = "Try again?";
+    initButton!.textContent = "Try again?";
     showStartButtonColumn();
 };
 
@@ -257,7 +268,7 @@ const answerButtonClickEvent = (event: MouseEvent) =>
 
         showScoreSubmitParagraphRow();
 
-        startButton!.textContent = "Try again?";
+        initButton!.textContent = "Try again?";
         showStartButtonColumn();
     }
 };
