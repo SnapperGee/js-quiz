@@ -103,8 +103,6 @@ The [`./src/main/scss`][scss directory] directory contains the single scss file 
 
 - The main [js-quiz.ts][js-quiz.ts] file currently contains too much functionality and needs to be further refactored and
   broken up into smaller individual components.
-- Make the option to try the quiz again presented to the user when giving the option to save a score as opposed to after
-  saving a score.
 - Whenever the quiz is completed, display the high scores to the user.
 
 [ts root directory]: ./src/main/ts "typescript source root directory"
