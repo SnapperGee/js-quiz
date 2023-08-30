@@ -1,6 +1,12 @@
 /**
+ * @module Answer
+ */
+
+/**
  * Class for creating the answers to quiz questions. These objects contain a `text` property which is the string literal
  * value of the answer and a `boolean` value indicating whether this answer object is the correct answer or not.
+ *
+ * @see {@link Question.Question}
  */
 export class Answer
 {
@@ -12,10 +18,10 @@ export class Answer
      * Constructs a new {@link Answer} object instance with it's {@link Answer.text} and {@link Answer.isCorrect}
      * properties set to the passed `string` and `boolean` arguments respectively.
      *
-     * @param text The `string` literal value of constructed {@link Answer} object instance.
+     * @param text The `string` literal value set to the constructed {@link Answer} object instance's {@link Answer.text}.
      *
      * @param isCorrect The `boolean` value indicating whether the constructed {@link Answer} object instance is a
-     *        correct answer or not.
+     *                  correct answer or not that's set the created object's {@link Answer.isCorrect} property.
      *
      * @throws {@link TypeError} if either or both passed arguments are `undefined` or `null`.
      */
@@ -23,12 +29,12 @@ export class Answer
     {
         if (text === undefined || text === null)
         {
-            throw new TypeError(`${new.target.name}: ${text} text string value.`);
+            throw new TypeError(`${new.target.name}: ${text} text string.`);
         }
 
         if (isCorrect === undefined || isCorrect === null)
         {
-            throw new TypeError(`${new.target.name}: ${isCorrect} isCorrect boolean value.`);
+            throw new TypeError(`${new.target.name}: ${isCorrect} isCorrect boolean.`);
         }
 
         this.#text = text;
