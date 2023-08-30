@@ -10,8 +10,8 @@ const promptParagraph = document.getElementById("promptParagraph");
 const setPromptParagraphText = (aString) => promptParagraph.textContent = aString;
 // Column that contains start button. Gets hidden when quiz starts
 const initButtonColumn = document.getElementById("initButtonColumn");
-const hideStartButtonColumn = () => initButtonColumn.style.display = "none";
-const showStartButtonColumn = () => initButtonColumn.style.display = "block";
+const hideInitButtonColumn = () => initButtonColumn.style.display = "none";
+const showInitButtonColumn = () => initButtonColumn.style.display = "block";
 // Start button that starts quiz timer and displays first question
 const initButton = document.getElementById("initButton");
 // The left and right columns of buttons corresponding to the quiz question answers
@@ -44,13 +44,17 @@ const initQuizTime = Math.round(5 * 1000 * questions.length / 1000);
 // Variable to hold the numeric value of the quiz timer. Gives 5 seconds per question
 let quizTimer = initQuizTime;
 let quizTimerInterval;
-// Function to call when start quiz button is clicked
+// Function to call when init quiz button is clicked. It resets all the values when it's called since this button can
+// be used to retrigger the quiz after it's been completed.
 const initQuiz = () => {
     quizTimer = initQuizTime;
+    // Reset the iterator of questions
     resetQuestionsIterator();
-    // Hide entire start button colum
-    hideStartButtonColumn();
+    // Hide init button colum so answer button columns can be shown
+    hideInitButtonColumn();
+    // Hide the score submit paragraph if the init button is pressed after previous tests and it's visible
     hideScoreSubmitParagraphRow();
+    // Hide the score submit form if the init button is pressed after previous tests and it's visible
     hideScoreSubmitForm();
     // Set the question prompt paragraph text and create buttons for each question answer
     setQuestionPromptAndAnswers(questionsIterableIterator.next().value);
@@ -60,6 +64,7 @@ const initQuiz = () => {
     showQuizTimerContainer();
     // Set the timer text to the init quiz time
     setTimerParagraphText(quizTimer);
+    // Start quiz timer
     quizTimerInterval = setInterval(() => {
         quizTimer--;
         // Update remaining time shown in upper corner
@@ -77,36 +82,54 @@ const initQuiz = () => {
             // Update init quiz button text
             initButton.textContent = "Try again?";
             // show init button to user
-            showStartButtonColumn();
+            showInitButtonColumn();
         }
     }, 1000);
 };
 initButton.addEventListener("click", initQuiz);
+// Function to bind to the save score button
 const saveScoreFormSubmitEvent = (event) => {
     event.preventDefault();
+    // Format the users name input value
     const _name = scoreNameInput.value.trim().replace(/\s{2,}/g, "\u0020");
+    // Don't submit blank names (names consisting only of whitespace)
+    if (_name.length === 0) {
+        return;
+    }
     const newHighScore = { name: _name, score: quizTimer };
     scoreNameInput.value = "";
+    // Retrieve saved high scores
     const savedScoresString = localStorage.getItem(LOCAL_STORAGE_HIGH_SCORES_KEY);
+    // Array to hold saved scores
     let savedScoresArray;
+    // If there are saved scores
     if (savedScoresString !== null) {
+        // Convert the saved scores array to an array object and sort it from highest to lowest scores.
         savedScoresArray = JSON.parse(savedScoresString).sort((aHighScore, anotherHighScore) => anotherHighScore.score - aHighScore.score);
+        // If there are more than 5 saved high scores, replace the lowest one with the new one
         if (savedScoresArray.length >= 5) {
             savedScoresArray.splice(savedScoresArray.length - 1, 1, newHighScore);
         }
+        // If there are less than 5 saved high scores, then just push new score to array
         else {
             savedScoresArray.push(newHighScore);
         }
+        // Resort saved high scores after adding new high score
         savedScoresArray.sort((aHighScore, anotherHighScore) => anotherHighScore.score - aHighScore.score);
     }
+    // If there are no saved high scores, create a new array of the new high score
     else {
         savedScoresArray = [newHighScore];
     }
+    // Save the newly updated or new high scores array to local storage
     localStorage.setItem(LOCAL_STORAGE_HIGH_SCORES_KEY, JSON.stringify(savedScoresArray));
+    // Remove save score submit paragraph
     hideScoreSubmitParagraphRow();
+    // Remove save score submit form
     hideScoreSubmitForm();
+    // Redisplay init button with new text
     initButton.textContent = "Try again?";
-    showStartButtonColumn();
+    showInitButtonColumn();
 };
 scoreSubmitForm?.addEventListener("submit", saveScoreFormSubmitEvent);
 // Timer used to hide row that displays correct or incorrect status of answered question
@@ -147,10 +170,15 @@ const answerButtonClickEvent = (event) => {
     }
     // If there are no questions left
     else {
+        // Stop quiz timer
         clearInterval(quizTimerInterval);
+        // Hide answer columns so end of quiz save score and/or message(s) and init button can be displayed
         hideAnswerColumns();
+        // Hide quiz timer
         hideQuizTimerContainer();
+        // Display message about reaching the end of the quiz
         setPromptParagraphText(`Good job, you completed the quiz! ${randomEmoji.positive()}\nWith a score of...`);
+        // Display the remaining quiz time in large text in center of screen below end of quiz message
         const scoreParagraph = document.createElement("p");
         scoreParagraph.classList.add("fw-bold");
         scoreParagraph.style.fontSize = "10rem";
@@ -158,16 +186,22 @@ const answerButtonClickEvent = (event) => {
         promptParagraph?.append(scoreParagraph);
         const highScoresString = localStorage.getItem(LOCAL_STORAGE_HIGH_SCORES_KEY);
         const highScores = highScoresString !== null ? JSON.parse(highScoresString) : null;
+        // If there are less than 5 saved high scores or the current quiz timer value is higher than the smallest saved score
         if (highScores === null || highScores.length < 5 || quizTimer > Math.min(...highScores.map(highScore => highScore.score))) {
+            // Set message to display to user and present option to save score
             setScoreSubmitParagraph("Your score is a top 5 in the leader boards! Would you like to save it?");
             showScoreSubmitForm();
         }
+        // If the quiz timer isn't a high score
         else {
+            // Don't present option to user to save score and set message to display
             setScoreSubmitParagraph("You must get a score that is within the top 5 of the leader boards to save it.");
         }
+        // Display message to user that was set accordingly based on whether or not user's score is eligible to be saved
         showScoreSubmitParagraphRow();
+        // Redisplay init button to user to offer a chance to retry quiz
         initButton.textContent = "Try again?";
-        showStartButtonColumn();
+        showInitButtonColumn();
     }
 };
 // Create object to overwrite answer buttons in answer button lists
