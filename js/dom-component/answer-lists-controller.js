@@ -29,6 +29,7 @@ export class AnswerListsController {
     }
     get leftList() { return __classPrivateFieldGet(this, _AnswerListsController_leftList, "f"); }
     get rightList() { return __classPrivateFieldGet(this, _AnswerListsController_rightList, "f"); }
+    get buttonClickEvent() { return __classPrivateFieldGet(this, _AnswerListsController_buttonClickEvent, "f"); }
     overwriteAnswerListItems(answers) {
         const answerButtons = shuffleArray(answers.map(answer => createAnswerButton(answer, __classPrivateFieldGet(this, _AnswerListsController_buttonClickEvent, "f"))));
         const answerButtonListItems = answerButtons.reduce((fragment, answerButton, index) => {
