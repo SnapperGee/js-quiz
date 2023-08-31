@@ -1,3 +1,6 @@
+/**
+ * Takes an array argument and returns a shuffled mutable copy of it.
+*/
 export const shuffleArray = <T>(array: readonly T[]): T[] =>
 {
     const shuffledArray = Array.from(array);
