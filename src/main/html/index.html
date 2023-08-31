@@ -8,6 +8,7 @@
 </head>
 <body>
 
+    <!-- noscript alert -->
     <noscript>
         <div class="container alert alert-danger">
             <div class="row align-items-center justify-content-around">
@@ -23,22 +24,26 @@
 
     <div class="h-100 container-fluid text-center">
 
+        <!-- Container for timer text and question/quiz results prompt -->
         <div class="h-25 row align-items-end">
             <div class="col">
-
+                <!-- quiz countdown timer -->
                 <div id="timerContainer" class="pe-5 fs-4 text-end">
                     <p id="timerParagraph"></p>
                 </div>
 
+                <!-- Main text to display quiz question and quiz results -->
                 <p id="promptParagraph" class="text-wrap fs-2">Use the button below to start the quiz on JavaScript fundamentals.</p>
 
             </div>
         </div>
 
+        <!-- Save score text info for user -->
         <div class="row-cols-1 pt-1" id="scoreSubmitParagraphRow">
             <p id="scoreSubmitParagraph" class="fs-4"></p>
         </div>
 
+        <!-- Score save form -->
         <form class="row g-3 justify-content-center" id="scoreSubmitForm">
             <div class="col-auto">
                 <label for="nameInput" class="visually-hidden">Name</label>
@@ -49,22 +54,26 @@
             </div>
         </form>
 
+        <!-- init button that starts and/or let restarts quiz  and left or right list elements  -->
         <div class="h-25 row align-items-center justify-content-center">
 
             <div id="initButtonColumn" class="col">
                 <button id="initButton" class="btn btn-primary shadow btn-lg fs-1 fw-bold button" type="button">Start</button>
             </div>
 
+            <!--  left column element distributed with half of the  -->
             <div id="leftAnswerColumn" class="col-4 answerColumn">
-                <ul id="leftAnswerButtonList" class="list-group answerButtonList"></ul>
+                <ul id="leftAnswerBuumn ttonList" class="list-group answerButtonList"></ul>
             </div>
 
+            <!-- right answer column distributed half the answer buttons -->
             <div id="rightAnswerColumn" class="col-4 answerColumn">
                 <ul class="list-group answerButtonList" id="rightAnswerButtonList"></ul>
             </div>
 
         </div>
 
+        <!--MEssage in response to the correct or incorrect answer  -->
         <div id="bottomRow" class="h-25 row align-items-start">
             <p class="fs-1 fw-bold"><span id="correctOrIncorrectText" class="text-muted"></span> <span id="correctOrIncorrectEmoji"></span></p>
         </div>
