@@ -37,6 +37,6 @@ const negativeEmojis: readonly string[] = Object.freeze([
 ]);
 
 export const randomEmoji = Object.freeze({
-    positive: (): string => Object.freeze(positiveEmojis[Math.floor(Math.random() * positiveEmojis.length)]),
-    negative: (): string => Object.freeze(negativeEmojis[Math.floor(Math.random() * negativeEmojis.length)])
+    positive: Object.freeze((): string => positiveEmojis[Math.floor(Math.random() * positiveEmojis.length)]),
+    negative: Object.freeze((): string => negativeEmojis[Math.floor(Math.random() * negativeEmojis.length)])
 });
