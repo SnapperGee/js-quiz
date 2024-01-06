@@ -15,7 +15,7 @@ this project.
 
 ### HTML
 
-The `src/main?html` directory contains only a single file as this is a single paged
+The `src/main/html` directory contains only a single file as this is a single paged
 application. This single html file is placed in the root of the outputted build
 file since it is the single entry point of this web app.
 
@@ -39,7 +39,7 @@ The [`src/main/ts/quiz`][ts quiz directory] directory contains the TypeScript cl
 
 - [`question.ts`][question.ts]
 
-  This file contains the model for a quiz questions. This class contains 2 properties:
+  This file contains the model for a quiz question. This class contains 2 properties:
 
   1. `promptText` which is the text of the question asked to the user.
   1. `answers` which is an array of [`answer`][answer.ts] objects that the user can pick from when answering the question
@@ -56,8 +56,8 @@ The [`src/main/ts/quiz`][ts quiz directory] directory contains the TypeScript cl
 
 ### ts/dom-component directory
 
-The [`src/main/ts/dom-component`][ts dom-component directory] directory contains the controller for dom object that contains
-the lists of answers and the function used to create an HTML answer button.
+The [src/main/ts/dom-component][ts dom-component directory] directory contains the controller for the DOM object, which
+includes the list of answers and the function used to create an HTML answer button.
 
 - [`answer-lists-controller.ts`][answer-lists-controller.ts]
 
@@ -85,7 +85,7 @@ the lists of answers and the function used to create an HTML answer button.
 
 The [`./src/main/scss`][scss directory] directory contains the single scss file compiled to this web app's css. It contains the source code used to hide elements by default and apply some minor custom styling.
 
-## Screen shot preview
+## Screenshot preview
 
 1. The user is initially prompted to start the quiz:
 
